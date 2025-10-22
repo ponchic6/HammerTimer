@@ -1,7 +1,4 @@
-﻿using Code.Gameplay.Common;
-using UnityEngine;
-
-namespace Code.Infrastructure.View.Registrars
+﻿namespace Code.Infrastructure.View.Registrars
 {
     public class TransformRegistrar : EntityComponentRegistrar
     {

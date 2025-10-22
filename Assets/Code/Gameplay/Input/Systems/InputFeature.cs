@@ -1,7 +1,6 @@
-﻿using Code.Gameplay.Input.Systems;
-using Code.Infrastructure.Systems;
+﻿using Code.Infrastructure.Systems;
 
-namespace Code.Gameplay.Input
+namespace Code.Gameplay.Input.Systems
 {
     public class InputFeature : Feature
     {
@@ -9,6 +8,7 @@ namespace Code.Gameplay.Input
         {
             Add(systemFactory.Create<InitializeInputSystem>());
             Add(systemFactory.Create<MovementInputSystem>());
+            Add(systemFactory.Create<GrabInputSystem>());
         }
     }
 }

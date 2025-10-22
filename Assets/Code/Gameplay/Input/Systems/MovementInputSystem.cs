@@ -13,6 +13,7 @@ namespace Code.Gameplay.Input.Systems
         public MovementInputSystem(IReadOnlyInputService inputService)
         {
             _inputService = inputService;
+            
             Contexts contexts = Contexts.sharedInstance;
             _game = contexts.game;
             _entities = _game.GetGroup(GameMatcher.AllOf(GameMatcher.MovementInput));

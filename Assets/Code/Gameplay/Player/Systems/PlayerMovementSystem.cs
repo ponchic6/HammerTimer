@@ -24,10 +24,17 @@ namespace Code.Gameplay.Player.Systems
             foreach (GameEntity player in _players)
             {
                 float deltaTime = Time.deltaTime;
-                Vector2 direction = input.movementInput.direction;
+                Vector2 direction = input.movementInput.Value;
                 float speed = player.speed.Value;
-                Vector3 delta = new Vector2(direction.x, direction.y) * speed * deltaTime;
+                Vector3 delta = new Vector3(direction.x, 0, direction.y) * speed * deltaTime;
                 player.transform.Value.position += delta;
+
+                if (direction.sqrMagnitude <= 0.01f)
+                    continue;
+
+                Vector3 lookDirection = new Vector3(direction.x, 0, direction.y);
+                Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
+                player.transform.Value.rotation = Quaternion.Slerp(player.transform.Value.rotation, targetRotation, 10f * deltaTime);
             }
         }
     }

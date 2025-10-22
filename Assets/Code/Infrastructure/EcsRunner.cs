@@ -20,7 +20,6 @@ namespace Code.Infrastructure
         {
             _mainFeature = _systemFactory.Create<MainFeature>();
             _mainFeature.Initialize();
-            
         }
 
         private void Update()
@@ -28,8 +27,10 @@ namespace Code.Infrastructure
             _mainFeature.Execute();
             _mainFeature.Cleanup();
         }
-
-        private void OnDestroy() =>
+        
+        private void OnDestroy()
+        {
             _mainFeature.TearDown();
+        }
     }
 }

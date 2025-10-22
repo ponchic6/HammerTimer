@@ -5,7 +5,7 @@ namespace Code.Infrastructure.Services
 {
     public class UnityInputService : IInputService
     {
-        private readonly HashSet<KeyCode> _simulatedHeldKeys = new HashSet<KeyCode>();
+        private readonly HashSet<KeyCode> _simulatedHeldKeys = new();
 
         public bool GetKey(KeyCode keyCode)
         {
@@ -14,6 +14,12 @@ namespace Code.Infrastructure.Services
 
             return Input.GetKey(keyCode);
         }
+
+        public bool GetInteractKeyDown() =>
+            Input.GetKeyDown(KeyCode.Space);
+
+        public bool GetInteractKey() =>
+            Input.GetKey(KeyCode.Space);
 
         public void HoldKey(KeyCode keyCode) =>
             _simulatedHeldKeys.Add(keyCode);

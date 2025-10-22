@@ -15,13 +15,16 @@ namespace Code.Gameplay.Input.Systems
             
             Contexts contexts = Contexts.sharedInstance;
             _game = contexts.game;
+            
         }
         
         public void Initialize()
         {
             GameEntity inputEntity = _game.CreateEntity();
             inputEntity.AddId(_identifierService.Next());
+            inputEntity.isInput = true;
             inputEntity.AddMovementInput(Vector2.zero);
+            inputEntity.isInteractInput = false;
         }
     }
 }

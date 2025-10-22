@@ -7,5 +7,8 @@ namespace Code.Infrastructure.StaticData
     public class CommonStaticData : ScriptableObject
     {
         public EntityBehaviour playerPrefab;
+        public EntityBehaviour shelf;
+        public EntityBehaviour produceMachine;
+        public float sendStateCooldown;
     }
 }

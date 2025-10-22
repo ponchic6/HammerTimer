@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: CommonStaticData
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 8684328594479894219, guid: 338b3008a88dd6c4394cef70fb8af1db, type: 3}
+  sendStateCooldown: 1
