@@ -33,7 +33,7 @@ namespace Code.Gameplay.Player
             int socketCount = Physics.OverlapSphereNonAlloc(position, _interactionRadius, _overlapResults, _socketLayer);
             GameEntity socketEntity = socketCount > 0 ? _overlapResults[0].GetComponent<EntityBehaviour>().Entity : null;
             
-            if (socketEntity is { hasGrabbedItem: true, hasProduceProgress: true })
+            if (socketEntity is { hasGrabbedItem: true, hasProduceProgress: true, hasProduceMachine: true})
             {
                 socketEntity.isProducingByPlayer = true;
             }

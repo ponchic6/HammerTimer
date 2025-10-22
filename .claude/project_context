@@ -1,0 +1,35 @@
+# Project Context
+
+## Entitas ECS Project
+
+This is a Unity project using the **Entitas ECS framework**.
+
+### Important Reference Documentation
+
+**ALWAYS refer to `Entitas_ECS_Guide.md` when working with Entitas code.**
+
+This guide contains:
+- Architecture patterns and best practices
+- Component creation rules
+- System implementation templates
+- Factory patterns
+- View binding patterns
+- Entity lifecycle management
+- Performance optimization tips
+
+### When to use the guide:
+
+- Creating new Components
+- Implementing Systems (IInitializeSystem, IExecuteSystem, ICleanupSystem)
+- Organizing Features
+- Creating entity Factories
+- Setting up View Binding
+- Working with Entity Indices
+- Implementing abilities and effects
+- Any Entitas-related development
+
+### Quick Reference:
+
+Before implementing any Entitas functionality, read the relevant section from `Entitas_ECS_Guide.md`.
+
+Location: `D:/UnityProject/EntitasAiTest/Entitas_ECS_Guide.md`

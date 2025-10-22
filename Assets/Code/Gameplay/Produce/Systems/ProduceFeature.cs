@@ -7,6 +7,7 @@ namespace Code.Gameplay.Produce.Systems
         public ProduceFeature(ISystemFactory systemFactory)
         {
             Add(systemFactory.Create<ProduceStatusIncreaser>());
+            Add(systemFactory.Create<ItemProduceByMachineSystem>());
         }
     }
 }
