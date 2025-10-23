@@ -8,19 +8,19 @@
 //------------------------------------------------------------------------------
 public partial class GameEntity {
 
-    public Code.Gameplay.Player.SpeedComponent speed { get { return (Code.Gameplay.Player.SpeedComponent)GetComponent(GameComponentsLookup.Speed); } }
+    public Code.Gameplay.Common.SpeedComponent speed { get { return (Code.Gameplay.Common.SpeedComponent)GetComponent(GameComponentsLookup.Speed); } }
     public bool hasSpeed { get { return HasComponent(GameComponentsLookup.Speed); } }
 
     public void AddSpeed(float newValue) {
         var index = GameComponentsLookup.Speed;
-        var component = (Code.Gameplay.Player.SpeedComponent)CreateComponent(index, typeof(Code.Gameplay.Player.SpeedComponent));
+        var component = (Code.Gameplay.Common.SpeedComponent)CreateComponent(index, typeof(Code.Gameplay.Common.SpeedComponent));
         component.Value = newValue;
         AddComponent(index, component);
     }
 
     public void ReplaceSpeed(float newValue) {
         var index = GameComponentsLookup.Speed;
-        var component = (Code.Gameplay.Player.SpeedComponent)CreateComponent(index, typeof(Code.Gameplay.Player.SpeedComponent));
+        var component = (Code.Gameplay.Common.SpeedComponent)CreateComponent(index, typeof(Code.Gameplay.Common.SpeedComponent));
         component.Value = newValue;
         ReplaceComponent(index, component);
     }

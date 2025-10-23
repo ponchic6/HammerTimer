@@ -8,20 +8,22 @@
 //------------------------------------------------------------------------------
 public partial class GameEntity {
 
-    public Code.Gameplay.Grabbing.ProduceProgress produceProgress { get { return (Code.Gameplay.Grabbing.ProduceProgress)GetComponent(GameComponentsLookup.ProduceProgress); } }
+    public Code.Gameplay.Produce.ProduceProgress produceProgress { get { return (Code.Gameplay.Produce.ProduceProgress)GetComponent(GameComponentsLookup.ProduceProgress); } }
     public bool hasProduceProgress { get { return HasComponent(GameComponentsLookup.ProduceProgress); } }
 
-    public void AddProduceProgress(float newValue) {
+    public void AddProduceProgress(float newProgress, string newItem) {
         var index = GameComponentsLookup.ProduceProgress;
-        var component = (Code.Gameplay.Grabbing.ProduceProgress)CreateComponent(index, typeof(Code.Gameplay.Grabbing.ProduceProgress));
-        component.Value = newValue;
+        var component = (Code.Gameplay.Produce.ProduceProgress)CreateComponent(index, typeof(Code.Gameplay.Produce.ProduceProgress));
+        component.Progress = newProgress;
+        component.Item = newItem;
         AddComponent(index, component);
     }
 
-    public void ReplaceProduceProgress(float newValue) {
+    public void ReplaceProduceProgress(float newProgress, string newItem) {
         var index = GameComponentsLookup.ProduceProgress;
-        var component = (Code.Gameplay.Grabbing.ProduceProgress)CreateComponent(index, typeof(Code.Gameplay.Grabbing.ProduceProgress));
-        component.Value = newValue;
+        var component = (Code.Gameplay.Produce.ProduceProgress)CreateComponent(index, typeof(Code.Gameplay.Produce.ProduceProgress));
+        component.Progress = newProgress;
+        component.Item = newItem;
         ReplaceComponent(index, component);
     }
 

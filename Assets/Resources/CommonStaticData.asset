@@ -13,4 +13,11 @@ MonoBehaviour:
   m_Name: CommonStaticData
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 8684328594479894219, guid: 338b3008a88dd6c4394cef70fb8af1db, type: 3}
-  sendStateCooldown: 1
+  shelf: {fileID: 0}
+  produceMachine: {fileID: 0}
+  doubleClickThreshold: 0.2
+  workbenchRecipes:
+  - {fileID: 11400000, guid: fc672c2dd059c4d48a858a16ef44a7b1, type: 2}
+  grabbableItemId:
+  - GrabbableItems/Iron
+  - GrabbableItems/Pistol

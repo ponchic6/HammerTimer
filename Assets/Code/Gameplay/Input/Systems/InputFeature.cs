@@ -8,7 +8,7 @@ namespace Code.Gameplay.Input.Systems
         {
             Add(systemFactory.Create<InitializeInputSystem>());
             Add(systemFactory.Create<MovementInputSystem>());
-            Add(systemFactory.Create<GrabInputSystem>());
+            Add(systemFactory.Create<InteractInputSystem>());
         }
     }
 }

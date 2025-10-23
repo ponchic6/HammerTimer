@@ -19,7 +19,7 @@ namespace Code.Gameplay.Produce.Systems
         {
             foreach (GameEntity entity in _entities)
             {
-                entity.produceProgress.Value += Time.deltaTime * 0.3f;
+                entity.produceProgress.Progress += Time.deltaTime * 0.3f;
             }
         }
     }

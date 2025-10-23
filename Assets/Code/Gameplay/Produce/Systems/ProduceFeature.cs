@@ -6,8 +6,12 @@ namespace Code.Gameplay.Produce.Systems
     {
         public ProduceFeature(ISystemFactory systemFactory)
         {
+            Add(systemFactory.Create<WorkbenchRecipeValidateSystem>());
+            Add(systemFactory.Create<ForgeCoalBurnSystem>());
+            Add(systemFactory.Create<ForgeMeltingSystem>());
             Add(systemFactory.Create<ProduceStatusIncreaser>());
-            Add(systemFactory.Create<ItemProduceByMachineSystem>());
+            Add(systemFactory.Create<ItemProduceSystem>());
+            Add(systemFactory.Create<WorkbenchProduceSystem>());
         }
     }
 }

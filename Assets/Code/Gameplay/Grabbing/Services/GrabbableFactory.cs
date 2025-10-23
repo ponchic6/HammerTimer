@@ -8,36 +8,36 @@ namespace Code.Gameplay.Grabbing.Services
     {
         private readonly GameContext _gameContext;
         private readonly IIdentifierService _identifierService;
-        private readonly Dictionary<GrabbableEnum, string> _prefabPaths;
 
         public GrabbableFactory(IIdentifierService identifierService)
         {
             _gameContext = Contexts.sharedInstance.game;
             
             _identifierService = identifierService;
-            _prefabPaths = new Dictionary<GrabbableEnum, string>
-            {
-                { GrabbableEnum.Iron, "GrabbableItems/Iron" },
-                { GrabbableEnum.Pistol, "GrabbableItems/Pistol" }
-            };
         }
 
-        public void SpawnNearWithPlayer(GrabbableEnum grabbableType)
+        public void SpawnNearWithPlayer(string grabbableId)
         {
             if (!_gameContext.isPlayer)
                 return;
 
             GameEntity playerEntity = _gameContext.playerEntity;
             Vector3 spawnPosition = playerEntity.transform.Value.position + playerEntity.transform.Value.forward * 2f;
-            
-            CreateGrabbableEntity(grabbableType, spawnPosition);
+
+            CreateGrabbableEntity(grabbableId, spawnPosition);
         }
 
-        private void CreateGrabbableEntity(GrabbableEnum grabbableType, Vector3 position)
+        public void SpawnAtPosition(string grabbableId, Vector3 position)
+        {
+            CreateGrabbableEntity(grabbableId, position);
+        }
+
+        private void CreateGrabbableEntity(string grabbableId, Vector3 position)
         {
             GameEntity entity = _gameContext.CreateEntity();
             entity.AddId(_identifierService.Next());
-            entity.AddViewPath(_prefabPaths[grabbableType]);
+            entity.AddViewPath(grabbableId);
+            entity.AddGrabbableItem(grabbableId);
             entity.AddInitialTransform(position, Quaternion.identity);
         }
     }

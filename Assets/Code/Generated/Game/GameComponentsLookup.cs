@@ -9,42 +9,52 @@
 public static class GameComponentsLookup {
 
     public const int Id = 0;
-    public const int Transform = 1;
-    public const int GrabbableItem = 2;
-    public const int ProduceMachine = 3;
-    public const int ProduceProgress = 4;
-    public const int ProducingByPlayer = 5;
-    public const int Socket = 6;
+    public const int Speed = 1;
+    public const int Transform = 2;
+    public const int GrabbableItem = 3;
+    public const int Shelf = 4;
+    public const int DoubleInteractDownInput = 5;
+    public const int HoldingInteractInput = 6;
     public const int Input = 7;
-    public const int InteractInput = 8;
+    public const int InteractDownInput = 8;
     public const int MovementInput = 9;
-    public const int GrabbedItem = 10;
-    public const int Player = 11;
-    public const int Speed = 12;
-    public const int Destructed = 13;
-    public const int SelfDestructTimer = 14;
-    public const int InitialTransform = 15;
-    public const int View = 16;
-    public const int ViewPath = 17;
-    public const int ViewPrefab = 18;
-    public const int ViewPrefabWithParent = 19;
+    public const int TimeOfInteractDownInput = 10;
+    public const int GrabbedItem = 11;
+    public const int Player = 12;
+    public const int Forge = 13;
+    public const int ProduceMachine = 14;
+    public const int ProduceProgress = 15;
+    public const int ProducingByPlayer = 16;
+    public const int Workbench = 17;
+    public const int Destructed = 18;
+    public const int SelfDestructTimer = 19;
+    public const int InitialTransform = 20;
+    public const int View = 21;
+    public const int ViewPath = 22;
+    public const int ViewPrefab = 23;
+    public const int ViewPrefabWithParent = 24;
 
-    public const int TotalComponents = 20;
+    public const int TotalComponents = 25;
 
     public static readonly string[] componentNames = {
         "Id",
+        "Speed",
         "Transform",
         "GrabbableItem",
+        "Shelf",
+        "DoubleInteractDownInput",
+        "HoldingInteractInput",
+        "Input",
+        "InteractDownInput",
+        "MovementInput",
+        "TimeOfInteractDownInput",
+        "GrabbedItem",
+        "Player",
+        "Forge",
         "ProduceMachine",
         "ProduceProgress",
         "ProducingByPlayer",
-        "Socket",
-        "Input",
-        "InteractInput",
-        "MovementInput",
-        "GrabbedItem",
-        "Player",
-        "Speed",
+        "Workbench",
         "Destructed",
         "SelfDestructTimer",
         "InitialTransform",
@@ -56,18 +66,23 @@ public static class GameComponentsLookup {
 
     public static readonly System.Type[] componentTypes = {
         typeof(Code.Gameplay.Common.Id),
+        typeof(Code.Gameplay.Common.SpeedComponent),
         typeof(Code.Gameplay.Common.TransformComponent),
         typeof(Code.Gameplay.Grabbing.GrabbableItem),
-        typeof(Code.Gameplay.Grabbing.ProduceMachineComponent),
-        typeof(Code.Gameplay.Grabbing.ProduceProgress),
-        typeof(Code.Gameplay.Grabbing.ProducingByPlayerComponent),
-        typeof(Code.Gameplay.Grabbing.SocketComponent),
+        typeof(Code.Gameplay.Grabbing.ShelfComponent),
+        typeof(Code.Gameplay.Input.DoubleInteractDownInput),
+        typeof(Code.Gameplay.Input.HoldingInteractInput),
         typeof(Code.Gameplay.Input.Input),
-        typeof(Code.Gameplay.Input.InteractInput),
+        typeof(Code.Gameplay.Input.InteractDownInput),
         typeof(Code.Gameplay.Input.MovementInputComponent),
+        typeof(Code.Gameplay.Input.TimeOfInteractDownInput),
         typeof(Code.Gameplay.Player.GrabbedItem),
         typeof(Code.Gameplay.Player.Player),
-        typeof(Code.Gameplay.Player.SpeedComponent),
+        typeof(Code.Gameplay.Produce.ForgeComponent),
+        typeof(Code.Gameplay.Produce.ProduceMachineComponent),
+        typeof(Code.Gameplay.Produce.ProduceProgress),
+        typeof(Code.Gameplay.Produce.ProducingByPlayerComponent),
+        typeof(Code.Gameplay.Produce.WorkbenchComponent),
         typeof(Code.Infrastructure.Destroy.Destructed),
         typeof(Code.Infrastructure.Destroy.SelfDestructTimer),
         typeof(Code.Infrastructure.View.InitialTransform),

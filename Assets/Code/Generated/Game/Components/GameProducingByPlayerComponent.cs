@@ -35,7 +35,7 @@ public partial class GameContext {
 //------------------------------------------------------------------------------
 public partial class GameEntity {
 
-    static readonly Code.Gameplay.Grabbing.ProducingByPlayerComponent producingByPlayerComponent = new Code.Gameplay.Grabbing.ProducingByPlayerComponent();
+    static readonly Code.Gameplay.Produce.ProducingByPlayerComponent producingByPlayerComponent = new Code.Gameplay.Produce.ProducingByPlayerComponent();
 
     public bool isProducingByPlayer {
         get { return HasComponent(GameComponentsLookup.ProducingByPlayer); }

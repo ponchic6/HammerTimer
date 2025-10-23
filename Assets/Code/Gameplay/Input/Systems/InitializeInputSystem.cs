@@ -24,7 +24,6 @@ namespace Code.Gameplay.Input.Systems
             inputEntity.AddId(_identifierService.Next());
             inputEntity.isInput = true;
             inputEntity.AddMovementInput(Vector2.zero);
-            inputEntity.isInteractInput = false;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Code.Infrastructure.View;
+﻿using System.Collections.Generic;
+using Code.Gameplay.Produce.StaticData;
+using Code.Infrastructure.View;
 using UnityEngine;
 
 namespace Code.Infrastructure.StaticData
@@ -9,6 +11,8 @@ namespace Code.Infrastructure.StaticData
         public EntityBehaviour playerPrefab;
         public EntityBehaviour shelf;
         public EntityBehaviour produceMachine;
-        public float sendStateCooldown;
+        public float doubleClickThreshold = 0.2f;
+        public List<WorkbenchRecipe> workbenchRecipes;
+        public List<string> grabbableItemId;
     }
 }

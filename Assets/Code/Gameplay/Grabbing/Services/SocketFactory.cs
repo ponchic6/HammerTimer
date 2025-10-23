@@ -21,7 +21,6 @@ namespace Code.Gameplay.Grabbing.Services
         {
             GameEntity shelfEntity = _game.CreateEntity();
             shelfEntity.AddId(_identifierService.Next());
-            shelfEntity.isSocket = true;
             shelfEntity.AddViewPrefab(_commonStaticData.shelf);
             shelfEntity.AddInitialTransform(position, Quaternion.identity);
         }
@@ -30,8 +29,7 @@ namespace Code.Gameplay.Grabbing.Services
         {
             GameEntity shelfEntity = _game.CreateEntity();
             shelfEntity.AddId(_identifierService.Next());
-            shelfEntity.isSocket = true;
-            shelfEntity.AddProduceMachine(GrabbableEnum.Iron, GrabbableEnum.Pistol);
+            shelfEntity.AddProduceMachine("Iron", "Pistol");
             shelfEntity.AddViewPrefab(_commonStaticData.produceMachine);
             shelfEntity.AddInitialTransform(position, Quaternion.identity);
         }

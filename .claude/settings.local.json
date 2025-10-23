@@ -5,7 +5,8 @@
       "mcp__UnityMCP__manage_prefabs",
       "mcp__UnityMCP__manage_scene",
       "mcp__UnityMCP__manage_asset",
-      "Bash(git checkout -- \"Assets/Code/Infrastructure/Services/IdentifierService.cs\")"
+      "Bash(git checkout -- \"Assets/Code/Infrastructure/Services/IdentifierService.cs\")",
+      "Bash(git mv:*)"
     ],
     "deny": [],
     "ask": []

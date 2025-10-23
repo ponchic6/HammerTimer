@@ -8,20 +8,20 @@
 //------------------------------------------------------------------------------
 public partial class GameEntity {
 
-    public Code.Gameplay.Grabbing.ProduceMachineComponent produceMachine { get { return (Code.Gameplay.Grabbing.ProduceMachineComponent)GetComponent(GameComponentsLookup.ProduceMachine); } }
+    public Code.Gameplay.Produce.ProduceMachineComponent produceMachine { get { return (Code.Gameplay.Produce.ProduceMachineComponent)GetComponent(GameComponentsLookup.ProduceMachine); } }
     public bool hasProduceMachine { get { return HasComponent(GameComponentsLookup.ProduceMachine); } }
 
-    public void AddProduceMachine(Code.Gameplay.Grabbing.GrabbableEnum newFrom, Code.Gameplay.Grabbing.GrabbableEnum newTo) {
+    public void AddProduceMachine(string newFrom, string newTo) {
         var index = GameComponentsLookup.ProduceMachine;
-        var component = (Code.Gameplay.Grabbing.ProduceMachineComponent)CreateComponent(index, typeof(Code.Gameplay.Grabbing.ProduceMachineComponent));
+        var component = (Code.Gameplay.Produce.ProduceMachineComponent)CreateComponent(index, typeof(Code.Gameplay.Produce.ProduceMachineComponent));
         component.From = newFrom;
         component.To = newTo;
         AddComponent(index, component);
     }
 
-    public void ReplaceProduceMachine(Code.Gameplay.Grabbing.GrabbableEnum newFrom, Code.Gameplay.Grabbing.GrabbableEnum newTo) {
+    public void ReplaceProduceMachine(string newFrom, string newTo) {
         var index = GameComponentsLookup.ProduceMachine;
-        var component = (Code.Gameplay.Grabbing.ProduceMachineComponent)CreateComponent(index, typeof(Code.Gameplay.Grabbing.ProduceMachineComponent));
+        var component = (Code.Gameplay.Produce.ProduceMachineComponent)CreateComponent(index, typeof(Code.Gameplay.Produce.ProduceMachineComponent));
         component.From = newFrom;
         component.To = newTo;
         ReplaceComponent(index, component);
