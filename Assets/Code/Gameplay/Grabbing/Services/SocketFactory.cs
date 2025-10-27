@@ -29,7 +29,7 @@ namespace Code.Gameplay.Grabbing.Services
         {
             GameEntity shelfEntity = _game.CreateEntity();
             shelfEntity.AddId(_identifierService.Next());
-            shelfEntity.AddProduceMachine("Iron", "Pistol");
+            shelfEntity.AddProduceMachine(ItemsEnum.IronIngot, ItemsEnum.IronIngot);
             shelfEntity.AddViewPrefab(_commonStaticData.produceMachine);
             shelfEntity.AddInitialTransform(position, Quaternion.identity);
         }

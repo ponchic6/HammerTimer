@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: WorkbenchRecipe
   m_EditorClassIdentifier: 
   from:
-  - Iron
-  - Pistol
-  to: Iron
+  - GrabbableItems/Iron
+  - GrabbableItems/Iron
+  to: GrabbableItems/Pistol

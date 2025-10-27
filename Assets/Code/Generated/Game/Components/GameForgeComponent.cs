@@ -8,22 +8,22 @@
 //------------------------------------------------------------------------------
 public partial class GameEntity {
 
-    public Code.Gameplay.Produce.ForgeComponent forge { get { return (Code.Gameplay.Produce.ForgeComponent)GetComponent(GameComponentsLookup.Forge); } }
+    public Code.Gameplay.Produce.Forge.ForgeComponent forge { get { return (Code.Gameplay.Produce.Forge.ForgeComponent)GetComponent(GameComponentsLookup.Forge); } }
     public bool hasForge { get { return HasComponent(GameComponentsLookup.Forge); } }
 
-    public void AddForge(float newCoal, float newOxygen) {
+    public void AddForge(float newCoal, float newTemperature) {
         var index = GameComponentsLookup.Forge;
-        var component = (Code.Gameplay.Produce.ForgeComponent)CreateComponent(index, typeof(Code.Gameplay.Produce.ForgeComponent));
+        var component = (Code.Gameplay.Produce.Forge.ForgeComponent)CreateComponent(index, typeof(Code.Gameplay.Produce.Forge.ForgeComponent));
         component.Coal = newCoal;
-        component.Oxygen = newOxygen;
+        component.Temperature = newTemperature;
         AddComponent(index, component);
     }
 
-    public void ReplaceForge(float newCoal, float newOxygen) {
+    public void ReplaceForge(float newCoal, float newTemperature) {
         var index = GameComponentsLookup.Forge;
-        var component = (Code.Gameplay.Produce.ForgeComponent)CreateComponent(index, typeof(Code.Gameplay.Produce.ForgeComponent));
+        var component = (Code.Gameplay.Produce.Forge.ForgeComponent)CreateComponent(index, typeof(Code.Gameplay.Produce.Forge.ForgeComponent));
         component.Coal = newCoal;
-        component.Oxygen = newOxygen;
+        component.Temperature = newTemperature;
         ReplaceComponent(index, component);
     }
 

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Code.Gameplay.Grabbing;
 using Code.Gameplay.Produce.StaticData;
 using Code.Infrastructure.StaticData;
 using Entitas;
@@ -25,7 +27,9 @@ namespace Code.Gameplay.Produce.Systems
             {
                 if (!entity.hasProduceProgress)
                 {
-                    List<string> currentIngredients = entity.workbench.Value;
+                    List<ItemsEnum> currentIngredients = entity.workbench.Value
+                        .Select(id => _game.GetEntityWithId(id).grabbableItem.Value)
+                        .ToList();
                 
                     foreach (WorkbenchRecipe recipe in _commonStaticData.workbenchRecipes)
                     {
@@ -38,13 +42,13 @@ namespace Code.Gameplay.Produce.Systems
             }
         }
 
-        private bool HasMatchingIngredients(List<string> currentIngredients, List<string> recipeIngredients)
+        private bool HasMatchingIngredients(List<ItemsEnum> currentIngredients, List<ItemsEnum> recipeIngredients)
         {
             if (currentIngredients.Count != recipeIngredients.Count)
                 return false;
 
-            List<string> current = new List<string>(currentIngredients);
-            List<string> required = new List<string>(recipeIngredients);
+            List<ItemsEnum> current = new List<ItemsEnum>(currentIngredients);
+            List<ItemsEnum> required = new List<ItemsEnum>(recipeIngredients);
 
             current.Sort();
             required.Sort();

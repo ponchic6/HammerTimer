@@ -1,5 +1,6 @@
-using System.Collections.Generic;
+using Code.Gameplay.Produce;
 using Code.Infrastructure.Services;
+using Code.Infrastructure.StaticData;
 using UnityEngine;
 
 namespace Code.Gameplay.Grabbing.Services
@@ -8,15 +9,17 @@ namespace Code.Gameplay.Grabbing.Services
     {
         private readonly GameContext _gameContext;
         private readonly IIdentifierService _identifierService;
+        private readonly CommonStaticData _commonStaticData;
 
-        public GrabbableFactory(IIdentifierService identifierService)
+        public GrabbableFactory(IIdentifierService identifierService, CommonStaticData commonStaticData)
         {
             _gameContext = Contexts.sharedInstance.game;
             
             _identifierService = identifierService;
+            _commonStaticData = commonStaticData;
         }
 
-        public void SpawnNearWithPlayer(string grabbableId)
+        public void SpawnViewNearWithPlayer(ItemsEnum grabbableEnum)
         {
             if (!_gameContext.isPlayer)
                 return;
@@ -24,21 +27,22 @@ namespace Code.Gameplay.Grabbing.Services
             GameEntity playerEntity = _gameContext.playerEntity;
             Vector3 spawnPosition = playerEntity.transform.Value.position + playerEntity.transform.Value.forward * 2f;
 
-            CreateGrabbableEntity(grabbableId, spawnPosition);
+            SpawnAtPosition(grabbableEnum, spawnPosition);
         }
 
-        public void SpawnAtPosition(string grabbableId, Vector3 position)
-        {
-            CreateGrabbableEntity(grabbableId, position);
-        }
-
-        private void CreateGrabbableEntity(string grabbableId, Vector3 position)
+        public GameEntity SpawnAtPosition(ItemsEnum grabbableEnum, Vector3 position, bool active = true, MoldEnum? moldEnum = null)
         {
             GameEntity entity = _gameContext.CreateEntity();
             entity.AddId(_identifierService.Next());
-            entity.AddViewPath(grabbableId);
-            entity.AddGrabbableItem(grabbableId);
+            entity.AddViewPath(_commonStaticData.EnumPathPairs[grabbableEnum]);
+            entity.AddGrabbableItem(grabbableEnum);
             entity.AddInitialTransform(position, Quaternion.identity);
+            entity.AddInitialViewState(active);
+            
+            if (moldEnum.HasValue)
+                entity.AddMold(moldEnum.Value);
+            
+            return entity;
         }
     }
 }

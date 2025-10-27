@@ -6,7 +6,14 @@
       "mcp__UnityMCP__manage_scene",
       "mcp__UnityMCP__manage_asset",
       "Bash(git checkout -- \"Assets/Code/Infrastructure/Services/IdentifierService.cs\")",
-      "Bash(git mv:*)"
+      "Bash(git mv:*)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:gamedev.stackexchange.com)",
+      "WebFetch(domain:stackoverflow.com)",
+      "WebFetch(domain:docs.unity3d.com)",
+      "WebFetch(domain:gist.github.com)",
+      "WebFetch(domain:blender.stackexchange.com)"
     ],
     "deny": [],
     "ask": []

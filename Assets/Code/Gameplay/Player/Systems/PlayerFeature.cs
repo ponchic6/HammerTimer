@@ -8,6 +8,7 @@ namespace Code.Gameplay.Player.Systems
         {
             Add(systemFactory.Create<InitializePlayerSystem>());
             Add(systemFactory.Create<PlayerMovementSystem>());
+            Add(systemFactory.Create<PlayerAnimationSystem>());
         }
     }
 }

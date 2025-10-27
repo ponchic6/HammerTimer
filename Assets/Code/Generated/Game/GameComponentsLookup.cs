@@ -12,35 +12,45 @@ public static class GameComponentsLookup {
     public const int Speed = 1;
     public const int Transform = 2;
     public const int GrabbableItem = 3;
-    public const int Shelf = 4;
-    public const int DoubleInteractDownInput = 5;
-    public const int HoldingInteractInput = 6;
-    public const int Input = 7;
-    public const int InteractDownInput = 8;
-    public const int MovementInput = 9;
-    public const int TimeOfInteractDownInput = 10;
-    public const int GrabbedItem = 11;
-    public const int Player = 12;
-    public const int Forge = 13;
-    public const int ProduceMachine = 14;
-    public const int ProduceProgress = 15;
-    public const int ProducingByPlayer = 16;
-    public const int Workbench = 17;
-    public const int Destructed = 18;
-    public const int SelfDestructTimer = 19;
-    public const int InitialTransform = 20;
-    public const int View = 21;
-    public const int ViewPath = 22;
-    public const int ViewPrefab = 23;
-    public const int ViewPrefabWithParent = 24;
+    public const int InfinityBox = 4;
+    public const int Mold = 5;
+    public const int Shelf = 6;
+    public const int DoubleInteractDownInput = 7;
+    public const int HoldingInteractInput = 8;
+    public const int Input = 9;
+    public const int InteractDownInput = 10;
+    public const int MovementInput = 11;
+    public const int TimeOfInteractDownInput = 12;
+    public const int GrabbedItem = 13;
+    public const int Player = 14;
+    public const int PlayerAnimator = 15;
+    public const int Forge = 16;
+    public const int GrabbableTemperature = 17;
+    public const int MouldingMachine = 18;
+    public const int MouldingQuality = 19;
+    public const int ProduceMachine = 20;
+    public const int ProduceProgress = 21;
+    public const int ProducingByPlayer = 22;
+    public const int Quality = 23;
+    public const int Workbench = 24;
+    public const int Destructed = 25;
+    public const int SelfDestructTimer = 26;
+    public const int InitialTransform = 27;
+    public const int InitialViewState = 28;
+    public const int View = 29;
+    public const int ViewPath = 30;
+    public const int ViewPrefab = 31;
+    public const int ViewPrefabWithParent = 32;
 
-    public const int TotalComponents = 25;
+    public const int TotalComponents = 33;
 
     public static readonly string[] componentNames = {
         "Id",
         "Speed",
         "Transform",
         "GrabbableItem",
+        "InfinityBox",
+        "Mold",
         "Shelf",
         "DoubleInteractDownInput",
         "HoldingInteractInput",
@@ -50,14 +60,20 @@ public static class GameComponentsLookup {
         "TimeOfInteractDownInput",
         "GrabbedItem",
         "Player",
+        "PlayerAnimator",
         "Forge",
+        "GrabbableTemperature",
+        "MouldingMachine",
+        "MouldingQuality",
         "ProduceMachine",
         "ProduceProgress",
         "ProducingByPlayer",
+        "Quality",
         "Workbench",
         "Destructed",
         "SelfDestructTimer",
         "InitialTransform",
+        "InitialViewState",
         "View",
         "ViewPath",
         "ViewPrefab",
@@ -69,6 +85,8 @@ public static class GameComponentsLookup {
         typeof(Code.Gameplay.Common.SpeedComponent),
         typeof(Code.Gameplay.Common.TransformComponent),
         typeof(Code.Gameplay.Grabbing.GrabbableItem),
+        typeof(Code.Gameplay.Grabbing.InfinityBoxComponent),
+        typeof(Code.Gameplay.Grabbing.MoldComponent),
         typeof(Code.Gameplay.Grabbing.ShelfComponent),
         typeof(Code.Gameplay.Input.DoubleInteractDownInput),
         typeof(Code.Gameplay.Input.HoldingInteractInput),
@@ -78,14 +96,20 @@ public static class GameComponentsLookup {
         typeof(Code.Gameplay.Input.TimeOfInteractDownInput),
         typeof(Code.Gameplay.Player.GrabbedItem),
         typeof(Code.Gameplay.Player.Player),
-        typeof(Code.Gameplay.Produce.ForgeComponent),
+        typeof(Code.Gameplay.Player.PlayerAnimatorComponent),
+        typeof(Code.Gameplay.Produce.Forge.ForgeComponent),
+        typeof(Code.Gameplay.Produce.Forge.GrabbableTemperatureComponent),
+        typeof(Code.Gameplay.Produce.Moulding.MouldingMachineComponent),
+        typeof(Code.Gameplay.Produce.Moulding.MouldingQualityComponent),
         typeof(Code.Gameplay.Produce.ProduceMachineComponent),
         typeof(Code.Gameplay.Produce.ProduceProgress),
         typeof(Code.Gameplay.Produce.ProducingByPlayerComponent),
+        typeof(Code.Gameplay.Produce.QualityComponent),
         typeof(Code.Gameplay.Produce.WorkbenchComponent),
         typeof(Code.Infrastructure.Destroy.Destructed),
         typeof(Code.Infrastructure.Destroy.SelfDestructTimer),
         typeof(Code.Infrastructure.View.InitialTransform),
+        typeof(Code.Infrastructure.View.InitialViewState),
         typeof(Code.Infrastructure.View.View),
         typeof(Code.Infrastructure.View.ViewPath),
         typeof(Code.Infrastructure.View.ViewPrefab),

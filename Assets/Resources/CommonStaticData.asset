@@ -16,8 +16,74 @@ MonoBehaviour:
   shelf: {fileID: 0}
   produceMachine: {fileID: 0}
   doubleClickThreshold: 0.2
+  qualityTimeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.6459954
+      outSlope: 0.6459954
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.5479987
+      value: 1
+      inSlope: -0.021354616
+      outSlope: -0.021354616
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 3
+      value: 0
+      inSlope: -0.6887046
+      outSlope: -0.6887046
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   workbenchRecipes:
   - {fileID: 11400000, guid: fc672c2dd059c4d48a858a16ef44a7b1, type: 2}
-  grabbableItemId:
-  - GrabbableItems/Iron
-  - GrabbableItems/Pistol
+  enumPathPairsList:
+  - enum: 0
+    path: GrabbableItems/Axe
+  - enum: 1
+    path: GrabbableItems/AxeBlade
+  - enum: 2
+    path: GrabbableItems/AxeBladeMold
+  - enum: 3
+    path: GrabbableItems/Coal
+  - enum: 4
+    path: GrabbableItems/Horseshoe
+  - enum: 5
+    path: GrabbableItems/IngotMold
+  - enum: 6
+    path: GrabbableItems/IronIngot
+  - enum: 7
+    path: GrabbableItems/IronOre
+  - enum: 8
+    path: GrabbableItems/MoltenIron
+  - enum: 9
+    path: GrabbableItems/Nail
+  - enum: 10
+    path: GrabbableItems/Sword
+  - enum: 11
+    path: GrabbableItems/SwordBlade
+  - enum: 12
+    path: GrabbableItems/SwordBladeMold
+  - enum: 13
+    path: GrabbableItems/WoodenHandle
+  forgeTemperatureIncreaseRate: 50
+  forgeTemperatureDecreaseRate: 20
+  forgeMaxTemperature: 2000
+  meltingTemperature: 1400
+  itemTemperatureChangeRate: 5
+  itemCoolingRate: 50
+  environmentTemperature: 25

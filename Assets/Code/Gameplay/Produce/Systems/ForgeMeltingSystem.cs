@@ -1,31 +1,32 @@
-﻿using Entitas;
+﻿using Code.Infrastructure.StaticData;
+using Entitas;
 using UnityEngine;
 
 namespace Code.Gameplay.Produce.Systems
 {
-    public class ForgeMeltingSystem : IExecuteSystem
+    public class TemperatureIncreaseByForgeSystem : IExecuteSystem
     {
         private readonly IGroup<GameEntity> _entities;
         private readonly GameContext _game;
+        private readonly CommonStaticData _commonStaticData;
 
-        public ForgeMeltingSystem()
+        public TemperatureIncreaseByForgeSystem(CommonStaticData commonStaticData)
         {
+            _commonStaticData = commonStaticData;
             _game = Contexts.sharedInstance.game;
-            
-            _entities = _game.GetGroup(GameMatcher.AllOf(GameMatcher.Forge, GameMatcher.ProduceProgress));
+
+            _entities = _game.GetGroup(GameMatcher.AllOf(GameMatcher.Forge, GameMatcher.GrabbedItem));
         }
 
         public void Execute()
         {
             foreach (GameEntity entity in _entities)
             {
-                float delta = Time.deltaTime * 0.3f;
-                float progress = entity.produceProgress.Progress;
+                GameEntity grabbableEntity = _game.GetEntityWithId(entity.grabbedItem.Value);
 
-                if (entity.forge.Coal > 0)
-                    entity.produceProgress.Progress = Mathf.Min(progress + delta, 1f);
-                else if (progress > 0f)
-                    entity.produceProgress.Progress = Mathf.Max(progress - delta, 0f);
+                float targetTemperature = entity.forge.Temperature;
+                float currentTemperature = grabbableEntity.grabbableTemperature.Value;
+                grabbableEntity.grabbableTemperature.Value = Mathf.Lerp(currentTemperature, targetTemperature, _commonStaticData.itemTemperatureChangeRate * Time.deltaTime);
             }
         }
     }

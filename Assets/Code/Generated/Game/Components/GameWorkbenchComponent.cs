@@ -11,14 +11,14 @@ public partial class GameEntity {
     public Code.Gameplay.Produce.WorkbenchComponent workbench { get { return (Code.Gameplay.Produce.WorkbenchComponent)GetComponent(GameComponentsLookup.Workbench); } }
     public bool hasWorkbench { get { return HasComponent(GameComponentsLookup.Workbench); } }
 
-    public void AddWorkbench(System.Collections.Generic.List<string> newValue) {
+    public void AddWorkbench(System.Collections.Generic.List<int> newValue) {
         var index = GameComponentsLookup.Workbench;
         var component = (Code.Gameplay.Produce.WorkbenchComponent)CreateComponent(index, typeof(Code.Gameplay.Produce.WorkbenchComponent));
         component.Value = newValue;
         AddComponent(index, component);
     }
 
-    public void ReplaceWorkbench(System.Collections.Generic.List<string> newValue) {
+    public void ReplaceWorkbench(System.Collections.Generic.List<int> newValue) {
         var index = GameComponentsLookup.Workbench;
         var component = (Code.Gameplay.Produce.WorkbenchComponent)CreateComponent(index, typeof(Code.Gameplay.Produce.WorkbenchComponent));
         component.Value = newValue;

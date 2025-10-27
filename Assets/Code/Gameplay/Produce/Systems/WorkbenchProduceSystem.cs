@@ -1,19 +1,22 @@
 ﻿using System.Collections.Generic;
+using Code.Gameplay.Grabbing.Services;
 using Entitas;
 
 namespace Code.Gameplay.Produce.Systems
 {
     public class WorkbenchProduceSystem : IExecuteSystem
     {
+        private readonly IGrabbableFactory _grabbableFactory;
         private readonly GameContext _game;
         private readonly IGroup<GameEntity> _entities;
         private List<GameEntity> _buffer = new(4);
 
-        public WorkbenchProduceSystem()
+        public WorkbenchProduceSystem(IGrabbableFactory grabbableFactory)
         {
+            _grabbableFactory = grabbableFactory;
             _game = Contexts.sharedInstance.game;
 
-            _entities = _game.GetGroup(GameMatcher.AllOf(GameMatcher.ProduceProgress, GameMatcher.Workbench).NoneOf(GameMatcher.GrabbedItem));
+            _entities = _game.GetGroup(GameMatcher.AllOf(GameMatcher.ProduceProgress, GameMatcher.Workbench));
         }
 
         public void Execute()
@@ -23,10 +26,23 @@ namespace Code.Gameplay.Produce.Systems
                 if (entity.produceProgress.Progress < 1f)
                     continue;
 
-                entity.AddGrabbedItem(entity.produceProgress.Item);
+                GameEntity grabbableEntity = _grabbableFactory.SpawnAtPosition(entity.produceProgress.Item, entity.transform.Value.position, false);
+                entity.AddGrabbedItem(grabbableEntity.id.Value);
                 entity.RemoveProduceProgress();
-                entity.workbench.Value.Clear();
+
+                DestructWorkbenchItems(entity);
             }
+        }
+
+        private void DestructWorkbenchItems(GameEntity entity)
+        {
+            foreach (int ingredientEntityId in entity.workbench.Value)
+            {
+                GameEntity ingredientEntity = _game.GetEntityWithId(ingredientEntityId);
+                ingredientEntity.isDestructed = true;
+            }
+
+            entity.workbench.Value.Clear();
         }
     }
 }

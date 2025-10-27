@@ -11,14 +11,14 @@ public partial class GameEntity {
     public Code.Gameplay.Grabbing.GrabbableItem grabbableItem { get { return (Code.Gameplay.Grabbing.GrabbableItem)GetComponent(GameComponentsLookup.GrabbableItem); } }
     public bool hasGrabbableItem { get { return HasComponent(GameComponentsLookup.GrabbableItem); } }
 
-    public void AddGrabbableItem(string newValue) {
+    public void AddGrabbableItem(Code.Gameplay.Grabbing.ItemsEnum newValue) {
         var index = GameComponentsLookup.GrabbableItem;
         var component = (Code.Gameplay.Grabbing.GrabbableItem)CreateComponent(index, typeof(Code.Gameplay.Grabbing.GrabbableItem));
         component.Value = newValue;
         AddComponent(index, component);
     }
 
-    public void ReplaceGrabbableItem(string newValue) {
+    public void ReplaceGrabbableItem(Code.Gameplay.Grabbing.ItemsEnum newValue) {
         var index = GameComponentsLookup.GrabbableItem;
         var component = (Code.Gameplay.Grabbing.GrabbableItem)CreateComponent(index, typeof(Code.Gameplay.Grabbing.GrabbableItem));
         component.Value = newValue;

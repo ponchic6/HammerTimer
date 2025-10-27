@@ -10,6 +10,7 @@ namespace Code.Infrastructure.View
             Add(systemFactory.Create<BindEntityViewFromPrefabSystem>());
             Add(systemFactory.Create<BindEntityViewFromPrefabWithParentSystem>());
             Add(systemFactory.Create<InitialPositionSetSystem>());
+            Add(systemFactory.Create<InitialViewActiveSetSystem>());
         }
     }
 }

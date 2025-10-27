@@ -1,5 +1,4 @@
-﻿using Code.Gameplay.Input;
-using Code.Gameplay.Input.Systems;
+﻿using Code.Gameplay.Input.Systems;
 using Code.Gameplay.Player.Systems;
 using Code.Gameplay.Produce.Systems;
 using Code.Infrastructure.Destroy;
