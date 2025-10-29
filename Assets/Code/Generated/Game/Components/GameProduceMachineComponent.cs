@@ -6,12 +6,15 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Gameplay.Produce.View;
+
 public partial class GameEntity {
 
     public Code.Gameplay.Produce.ProduceMachineComponent produceMachine { get { return (Code.Gameplay.Produce.ProduceMachineComponent)GetComponent(GameComponentsLookup.ProduceMachine); } }
     public bool hasProduceMachine { get { return HasComponent(GameComponentsLookup.ProduceMachine); } }
 
-    public void AddProduceMachine(Code.Gameplay.Grabbing.ItemsEnum newFrom, Code.Gameplay.Grabbing.ItemsEnum newTo) {
+    public void AddProduceMachine(ItemsEnum newFrom, ItemsEnum newTo) {
         var index = GameComponentsLookup.ProduceMachine;
         var component = (Code.Gameplay.Produce.ProduceMachineComponent)CreateComponent(index, typeof(Code.Gameplay.Produce.ProduceMachineComponent));
         component.From = newFrom;
@@ -19,7 +22,7 @@ public partial class GameEntity {
         AddComponent(index, component);
     }
 
-    public void ReplaceProduceMachine(Code.Gameplay.Grabbing.ItemsEnum newFrom, Code.Gameplay.Grabbing.ItemsEnum newTo) {
+    public void ReplaceProduceMachine(ItemsEnum newFrom, ItemsEnum newTo) {
         var index = GameComponentsLookup.ProduceMachine;
         var component = (Code.Gameplay.Produce.ProduceMachineComponent)CreateComponent(index, typeof(Code.Gameplay.Produce.ProduceMachineComponent));
         component.From = newFrom;

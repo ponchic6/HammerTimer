@@ -6,19 +6,22 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Gameplay.Produce.Moulding;
+
 public partial class GameEntity {
 
     public Code.Gameplay.Produce.Moulding.MouldingMachineComponent mouldingMachine { get { return (Code.Gameplay.Produce.Moulding.MouldingMachineComponent)GetComponent(GameComponentsLookup.MouldingMachine); } }
     public bool hasMouldingMachine { get { return HasComponent(GameComponentsLookup.MouldingMachine); } }
 
-    public void AddMouldingMachine(Code.Gameplay.Produce.MoldEnum newMoldEnumValue) {
+    public void AddMouldingMachine(MoldEnum newMoldEnumValue) {
         var index = GameComponentsLookup.MouldingMachine;
         var component = (Code.Gameplay.Produce.Moulding.MouldingMachineComponent)CreateComponent(index, typeof(Code.Gameplay.Produce.Moulding.MouldingMachineComponent));
         component.MoldEnumValue = newMoldEnumValue;
         AddComponent(index, component);
     }
 
-    public void ReplaceMouldingMachine(Code.Gameplay.Produce.MoldEnum newMoldEnumValue) {
+    public void ReplaceMouldingMachine(MoldEnum newMoldEnumValue) {
         var index = GameComponentsLookup.MouldingMachine;
         var component = (Code.Gameplay.Produce.Moulding.MouldingMachineComponent)CreateComponent(index, typeof(Code.Gameplay.Produce.Moulding.MouldingMachineComponent));
         component.MoldEnumValue = newMoldEnumValue;

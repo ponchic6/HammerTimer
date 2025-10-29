@@ -20,7 +20,6 @@ namespace Code.Infrastructure.View
             if (entityBehaviour == null)
                 entityBehaviour = view.AddComponent<EntityBehaviour>();
             EnsureTransformRegistrar(view, entityBehaviour);
-            EnsureBasicVisual(view);
             entityBehaviour.SetEntity(gameEntity);
             return entityBehaviour;
         }
@@ -38,7 +37,6 @@ namespace Code.Infrastructure.View
             if (entityBehaviour == null)
                 entityBehaviour = view.AddComponent<EntityBehaviour>();
             EnsureTransformRegistrar(view, entityBehaviour);
-            EnsureBasicVisual(view);
             entityBehaviour.SetEntity(gameEntity);
             return entityBehaviour;
         }
@@ -48,17 +46,6 @@ namespace Code.Infrastructure.View
             var registrar = view.GetComponent<TransformRegistrar>();
             if (registrar == null)
                 registrar = view.AddComponent<TransformRegistrar>();
-        }
-        
-        private static void EnsureBasicVisual(GameObject view)
-        {
-            if (view.GetComponentInChildren<Renderer>() != null)
-                return;
-            var visual = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-            visual.name = "PlayerVisual";
-            visual.transform.SetParent(view.transform, false);
-            visual.transform.localPosition = Vector3.zero;
-            visual.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         }
     }
 }

@@ -80,6 +80,8 @@ MonoBehaviour:
     path: GrabbableItems/SwordBladeMold
   - enum: 13
     path: GrabbableItems/WoodenHandle
+  maxPlayerSpeed: 5
+  acceleration: 25
   forgeTemperatureIncreaseRate: 50
   forgeTemperatureDecreaseRate: 20
   forgeMaxTemperature: 2000

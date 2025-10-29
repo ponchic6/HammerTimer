@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Code.Gameplay.Grabbing;
+using Code.Gameplay.Produce.View;
 using UnityEngine;
 
 namespace Code.Gameplay.Produce.StaticData

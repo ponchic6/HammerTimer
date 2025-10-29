@@ -6,21 +6,25 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Gameplay.Produce;
+using Code.Gameplay.Produce.Moulding;
+
 public partial class GameEntity {
 
-    public Code.Gameplay.Grabbing.MoldComponent mold { get { return (Code.Gameplay.Grabbing.MoldComponent)GetComponent(GameComponentsLookup.Mold); } }
+    public MoldComponent mold { get { return (MoldComponent)GetComponent(GameComponentsLookup.Mold); } }
     public bool hasMold { get { return HasComponent(GameComponentsLookup.Mold); } }
 
-    public void AddMold(Code.Gameplay.Produce.MoldEnum newValue) {
+    public void AddMold(MoldEnum newValue) {
         var index = GameComponentsLookup.Mold;
-        var component = (Code.Gameplay.Grabbing.MoldComponent)CreateComponent(index, typeof(Code.Gameplay.Grabbing.MoldComponent));
+        var component = (MoldComponent)CreateComponent(index, typeof(MoldComponent));
         component.Value = newValue;
         AddComponent(index, component);
     }
 
-    public void ReplaceMold(Code.Gameplay.Produce.MoldEnum newValue) {
+    public void ReplaceMold(MoldEnum newValue) {
         var index = GameComponentsLookup.Mold;
-        var component = (Code.Gameplay.Grabbing.MoldComponent)CreateComponent(index, typeof(Code.Gameplay.Grabbing.MoldComponent));
+        var component = (MoldComponent)CreateComponent(index, typeof(MoldComponent));
         component.Value = newValue;
         ReplaceComponent(index, component);
     }

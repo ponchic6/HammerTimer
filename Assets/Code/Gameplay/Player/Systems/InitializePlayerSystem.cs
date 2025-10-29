@@ -1,4 +1,4 @@
-﻿using Code.Gameplay.Grabbing.Services;
+﻿using Code.Gameplay.Interacting.Services;
 using Code.Infrastructure.Services;
 using Code.Infrastructure.StaticData;
 using Entitas;
@@ -27,7 +27,7 @@ namespace Code.Gameplay.Player.Systems
         {
             GameEntity player = _game.CreateEntity();
             player.AddId(_identifierService.Next());
-            player.AddSpeed(5f);
+            player.AddCurrentSpeed(0f);
             player.isPlayer = true;
             player.AddViewPrefab(_commonStaticData.playerPrefab);
 

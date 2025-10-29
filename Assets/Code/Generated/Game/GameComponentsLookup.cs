@@ -6,21 +6,24 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Gameplay.Produce;
+
 public static class GameComponentsLookup {
 
     public const int Id = 0;
-    public const int Speed = 1;
-    public const int Transform = 2;
-    public const int GrabbableItem = 3;
-    public const int InfinityBox = 4;
-    public const int Mold = 5;
-    public const int Shelf = 6;
-    public const int DoubleInteractDownInput = 7;
-    public const int HoldingInteractInput = 8;
-    public const int Input = 9;
-    public const int InteractDownInput = 10;
-    public const int MovementInput = 11;
-    public const int TimeOfInteractDownInput = 12;
+    public const int Transform = 1;
+    public const int GrabbableItem = 2;
+    public const int InfinityBox = 3;
+    public const int Mold = 4;
+    public const int Shelf = 5;
+    public const int DoubleInteractDownInput = 6;
+    public const int HoldingInteractInput = 7;
+    public const int Input = 8;
+    public const int InteractDownInput = 9;
+    public const int MovementInput = 10;
+    public const int TimeOfInteractDownInput = 11;
+    public const int CurrentSpeed = 12;
     public const int GrabbedItem = 13;
     public const int Player = 14;
     public const int PlayerAnimator = 15;
@@ -46,7 +49,6 @@ public static class GameComponentsLookup {
 
     public static readonly string[] componentNames = {
         "Id",
-        "Speed",
         "Transform",
         "GrabbableItem",
         "InfinityBox",
@@ -58,6 +60,7 @@ public static class GameComponentsLookup {
         "InteractDownInput",
         "MovementInput",
         "TimeOfInteractDownInput",
+        "CurrentSpeed",
         "GrabbedItem",
         "Player",
         "PlayerAnimator",
@@ -82,18 +85,18 @@ public static class GameComponentsLookup {
 
     public static readonly System.Type[] componentTypes = {
         typeof(Code.Gameplay.Common.Id),
-        typeof(Code.Gameplay.Common.SpeedComponent),
         typeof(Code.Gameplay.Common.TransformComponent),
-        typeof(Code.Gameplay.Grabbing.GrabbableItem),
-        typeof(Code.Gameplay.Grabbing.InfinityBoxComponent),
-        typeof(Code.Gameplay.Grabbing.MoldComponent),
-        typeof(Code.Gameplay.Grabbing.ShelfComponent),
+        typeof(GrabbableItem),
+        typeof(InfinityBoxComponent),
+        typeof(MoldComponent),
+        typeof(ShelfComponent),
         typeof(Code.Gameplay.Input.DoubleInteractDownInput),
         typeof(Code.Gameplay.Input.HoldingInteractInput),
         typeof(Code.Gameplay.Input.Input),
         typeof(Code.Gameplay.Input.InteractDownInput),
         typeof(Code.Gameplay.Input.MovementInputComponent),
         typeof(Code.Gameplay.Input.TimeOfInteractDownInput),
+        typeof(Code.Gameplay.Player.CurrentSpeedComponent),
         typeof(Code.Gameplay.Player.GrabbedItem),
         typeof(Code.Gameplay.Player.Player),
         typeof(Code.Gameplay.Player.PlayerAnimatorComponent),

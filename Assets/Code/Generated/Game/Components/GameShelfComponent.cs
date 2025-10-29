@@ -6,9 +6,12 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Gameplay.Produce;
+
 public partial class GameEntity {
 
-    static readonly Code.Gameplay.Grabbing.ShelfComponent shelfComponent = new Code.Gameplay.Grabbing.ShelfComponent();
+    static readonly ShelfComponent shelfComponent = new ShelfComponent();
 
     public bool isShelf {
         get { return HasComponent(GameComponentsLookup.Shelf); }

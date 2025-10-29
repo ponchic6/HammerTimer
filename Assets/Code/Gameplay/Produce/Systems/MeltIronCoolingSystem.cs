@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Code.Gameplay.Grabbing;
+using Code.Gameplay.Produce.View;
 using Code.Infrastructure.StaticData;
 using Entitas;
 using UnityEngine;
@@ -30,12 +30,12 @@ namespace Code.Gameplay.Produce.Systems
                 if (entity.grabbableTemperature.Value <= _commonStaticData.meltingTemperature)
                 {
                     if (entity.grabbableItem.Value == ItemsEnum.MoltenIron)
-                        entity.grabbableItem.Value = ItemsEnum.IronIngot;
+                        entity.ReplaceGrabbableItem(ItemsEnum.IronIngot);
                 }
                 else
                 {
                     if (entity.grabbableItem.Value == ItemsEnum.IronIngot)
-                        entity.grabbableItem.Value = ItemsEnum.MoltenIron;
+                        entity.ReplaceGrabbableItem(ItemsEnum.MoltenIron);
                 }
             }
         }

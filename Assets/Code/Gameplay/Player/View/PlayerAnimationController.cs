@@ -4,25 +4,12 @@ namespace Code.Gameplay.Player.View
 {
     public class PlayerAnimationController : MonoBehaviour
     {
+        private static readonly int Blend = Animator.StringToHash("Blend");
         [SerializeField] private Animator animator;
-        private static readonly int IdleTrigger = Animator.StringToHash("IdleTrigger");
-        private static readonly int RunTrigger = Animator.StringToHash("RunTrigger");
-        private int _currentAnimationState = IdleTrigger;
 
-        public void TrySetIdleState()
+        public void SetBlendMotion(float newValue)
         {
-            if (_currentAnimationState == IdleTrigger)
-                return;
-            animator.SetTrigger(IdleTrigger);
-            _currentAnimationState = IdleTrigger;
-        }
-
-        public void TrySetRunState()    
-        {
-            if (_currentAnimationState == RunTrigger)
-                return;
-            animator.SetTrigger(RunTrigger);
-            _currentAnimationState = RunTrigger;
+            animator.SetFloat(Blend, newValue);
         }
     }
 }

@@ -6,21 +6,25 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Gameplay.Produce;
+using Code.Gameplay.Produce.View;
+
 public partial class GameEntity {
 
-    public Code.Gameplay.Grabbing.InfinityBoxComponent infinityBox { get { return (Code.Gameplay.Grabbing.InfinityBoxComponent)GetComponent(GameComponentsLookup.InfinityBox); } }
+    public InfinityBoxComponent infinityBox { get { return (InfinityBoxComponent)GetComponent(GameComponentsLookup.InfinityBox); } }
     public bool hasInfinityBox { get { return HasComponent(GameComponentsLookup.InfinityBox); } }
 
-    public void AddInfinityBox(Code.Gameplay.Grabbing.ItemsEnum newValue) {
+    public void AddInfinityBox(ItemsEnum newValue) {
         var index = GameComponentsLookup.InfinityBox;
-        var component = (Code.Gameplay.Grabbing.InfinityBoxComponent)CreateComponent(index, typeof(Code.Gameplay.Grabbing.InfinityBoxComponent));
+        var component = (InfinityBoxComponent)CreateComponent(index, typeof(InfinityBoxComponent));
         component.Value = newValue;
         AddComponent(index, component);
     }
 
-    public void ReplaceInfinityBox(Code.Gameplay.Grabbing.ItemsEnum newValue) {
+    public void ReplaceInfinityBox(ItemsEnum newValue) {
         var index = GameComponentsLookup.InfinityBox;
-        var component = (Code.Gameplay.Grabbing.InfinityBoxComponent)CreateComponent(index, typeof(Code.Gameplay.Grabbing.InfinityBoxComponent));
+        var component = (InfinityBoxComponent)CreateComponent(index, typeof(InfinityBoxComponent));
         component.Value = newValue;
         ReplaceComponent(index, component);
     }

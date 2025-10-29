@@ -1,4 +1,4 @@
-﻿using Code.Gameplay.Grabbing.Services;
+﻿using Code.Gameplay.Interacting.Services;
 using Code.Infrastructure.Services;
 using Code.Infrastructure.StaticData;
 using Code.Infrastructure.Systems;

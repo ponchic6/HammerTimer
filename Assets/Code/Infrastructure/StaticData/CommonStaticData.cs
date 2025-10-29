@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Code.Gameplay.Grabbing;
 using Code.Gameplay.Produce.StaticData;
+using Code.Gameplay.Produce.View;
 using Code.Infrastructure.View;
 using UnityEngine;
 
@@ -17,6 +17,8 @@ namespace Code.Infrastructure.StaticData
         public AnimationCurve qualityTimeCurve;
         public List<WorkbenchRecipe> workbenchRecipes;
         public List<EnumPathPair> enumPathPairsList;
+        public float maxPlayerSpeed;
+        public float acceleration;
         public float forgeTemperatureIncreaseRate;
         public float forgeTemperatureDecreaseRate;
         public float forgeMaxTemperature;
