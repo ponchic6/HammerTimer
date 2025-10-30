@@ -7,6 +7,6 @@ namespace Code.Gameplay.Produce
     [Game] public class GrabbableItem : IComponent { public ItemsEnum Value; }
     [Game] public class ShelfComponent : IComponent { }
     [Game] public class InfinityBoxComponent : IComponent { public ItemsEnum Value; }
-    [Game] public class MoldComponent : IComponent { public MoldEnum Value;}
+    [Game] public class MoldComponent : IComponent { public MoldEnum Mold; public ItemsEnum Item; }
 }
 

@@ -6,25 +6,21 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Gameplay.Produce;
-using Code.Gameplay.Produce.View;
-
 public partial class GameEntity {
 
-    public InfinityBoxComponent infinityBox { get { return (InfinityBoxComponent)GetComponent(GameComponentsLookup.InfinityBox); } }
+    public Code.Gameplay.Produce.InfinityBoxComponent infinityBox { get { return (Code.Gameplay.Produce.InfinityBoxComponent)GetComponent(GameComponentsLookup.InfinityBox); } }
     public bool hasInfinityBox { get { return HasComponent(GameComponentsLookup.InfinityBox); } }
 
-    public void AddInfinityBox(ItemsEnum newValue) {
+    public void AddInfinityBox(Code.Gameplay.Produce.View.ItemsEnum newValue) {
         var index = GameComponentsLookup.InfinityBox;
-        var component = (InfinityBoxComponent)CreateComponent(index, typeof(InfinityBoxComponent));
+        var component = (Code.Gameplay.Produce.InfinityBoxComponent)CreateComponent(index, typeof(Code.Gameplay.Produce.InfinityBoxComponent));
         component.Value = newValue;
         AddComponent(index, component);
     }
 
-    public void ReplaceInfinityBox(ItemsEnum newValue) {
+    public void ReplaceInfinityBox(Code.Gameplay.Produce.View.ItemsEnum newValue) {
         var index = GameComponentsLookup.InfinityBox;
-        var component = (InfinityBoxComponent)CreateComponent(index, typeof(InfinityBoxComponent));
+        var component = (Code.Gameplay.Produce.InfinityBoxComponent)CreateComponent(index, typeof(Code.Gameplay.Produce.InfinityBoxComponent));
         component.Value = newValue;
         ReplaceComponent(index, component);
     }

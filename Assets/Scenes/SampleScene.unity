@@ -1423,6 +1423,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2872057070253577858, guid: b503f426a305c7e4983a4c66818acb42, type: 3}
+      propertyPath: _componentsToAdd.Array.data[0].componentIndex
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 7454471380434562826, guid: b503f426a305c7e4983a4c66818acb42, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.76
@@ -2816,6 +2820,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MoldingMachine
       objectReference: {fileID: 0}
+    - target: {fileID: 2912279103189628563, guid: ed6d9c8a261b5c84dada6fb74817a374, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3583253430711932901, guid: ed6d9c8a261b5c84dada6fb74817a374, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.583
@@ -2855,6 +2863,10 @@ PrefabInstance:
     - target: {fileID: 3583253430711932901, guid: ed6d9c8a261b5c84dada6fb74817a374, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8274009711545842333, guid: ed6d9c8a261b5c84dada6fb74817a374, type: 3}
+      propertyPath: _componentsToAdd.Array.data[0].componentIndex
+      value: 17
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

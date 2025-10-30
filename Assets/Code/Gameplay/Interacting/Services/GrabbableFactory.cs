@@ -42,7 +42,7 @@ namespace Code.Gameplay.Interacting.Services
             entity.AddInitialViewState(active);
             
             if (moldEnum.HasValue)
-                entity.AddMold(moldEnum.Value);
+                entity.AddMold(moldEnum.Value, grabbableEnum);
             
             return entity;
         }

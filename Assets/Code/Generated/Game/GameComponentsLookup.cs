@@ -6,35 +6,32 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Gameplay.Produce;
-
 public static class GameComponentsLookup {
 
     public const int Id = 0;
     public const int Transform = 1;
-    public const int GrabbableItem = 2;
-    public const int InfinityBox = 3;
-    public const int Mold = 4;
-    public const int Shelf = 5;
-    public const int DoubleInteractDownInput = 6;
-    public const int HoldingInteractInput = 7;
-    public const int Input = 8;
-    public const int InteractDownInput = 9;
-    public const int MovementInput = 10;
-    public const int TimeOfInteractDownInput = 11;
-    public const int CurrentSpeed = 12;
-    public const int GrabbedItem = 13;
-    public const int Player = 14;
-    public const int PlayerAnimator = 15;
-    public const int Forge = 16;
-    public const int GrabbableTemperature = 17;
-    public const int MouldingMachine = 18;
-    public const int MouldingQuality = 19;
-    public const int ProduceMachine = 20;
-    public const int ProduceProgress = 21;
-    public const int ProducingByPlayer = 22;
-    public const int Quality = 23;
+    public const int DoubleInteractDownInput = 2;
+    public const int HoldingInteractInput = 3;
+    public const int Input = 4;
+    public const int InteractDownInput = 5;
+    public const int MovementInput = 6;
+    public const int TimeOfInteractDownInput = 7;
+    public const int CurrentSpeed = 8;
+    public const int GrabbedItem = 9;
+    public const int Player = 10;
+    public const int PlayerAnimator = 11;
+    public const int Forge = 12;
+    public const int GrabbableTemperature = 13;
+    public const int GrabbableItem = 14;
+    public const int InfinityBox = 15;
+    public const int Mold = 16;
+    public const int MouldingMachine = 17;
+    public const int MouldingQuality = 18;
+    public const int ProduceMachine = 19;
+    public const int ProduceProgress = 20;
+    public const int ProducingByPlayer = 21;
+    public const int Quality = 22;
+    public const int Shelf = 23;
     public const int Workbench = 24;
     public const int Destructed = 25;
     public const int SelfDestructTimer = 26;
@@ -50,10 +47,6 @@ public static class GameComponentsLookup {
     public static readonly string[] componentNames = {
         "Id",
         "Transform",
-        "GrabbableItem",
-        "InfinityBox",
-        "Mold",
-        "Shelf",
         "DoubleInteractDownInput",
         "HoldingInteractInput",
         "Input",
@@ -66,12 +59,16 @@ public static class GameComponentsLookup {
         "PlayerAnimator",
         "Forge",
         "GrabbableTemperature",
+        "GrabbableItem",
+        "InfinityBox",
+        "Mold",
         "MouldingMachine",
         "MouldingQuality",
         "ProduceMachine",
         "ProduceProgress",
         "ProducingByPlayer",
         "Quality",
+        "Shelf",
         "Workbench",
         "Destructed",
         "SelfDestructTimer",
@@ -86,10 +83,6 @@ public static class GameComponentsLookup {
     public static readonly System.Type[] componentTypes = {
         typeof(Code.Gameplay.Common.Id),
         typeof(Code.Gameplay.Common.TransformComponent),
-        typeof(GrabbableItem),
-        typeof(InfinityBoxComponent),
-        typeof(MoldComponent),
-        typeof(ShelfComponent),
         typeof(Code.Gameplay.Input.DoubleInteractDownInput),
         typeof(Code.Gameplay.Input.HoldingInteractInput),
         typeof(Code.Gameplay.Input.Input),
@@ -102,12 +95,16 @@ public static class GameComponentsLookup {
         typeof(Code.Gameplay.Player.PlayerAnimatorComponent),
         typeof(Code.Gameplay.Produce.Forge.ForgeComponent),
         typeof(Code.Gameplay.Produce.Forge.GrabbableTemperatureComponent),
+        typeof(Code.Gameplay.Produce.GrabbableItem),
+        typeof(Code.Gameplay.Produce.InfinityBoxComponent),
+        typeof(Code.Gameplay.Produce.MoldComponent),
         typeof(Code.Gameplay.Produce.Moulding.MouldingMachineComponent),
         typeof(Code.Gameplay.Produce.Moulding.MouldingQualityComponent),
         typeof(Code.Gameplay.Produce.ProduceMachineComponent),
         typeof(Code.Gameplay.Produce.ProduceProgress),
         typeof(Code.Gameplay.Produce.ProducingByPlayerComponent),
         typeof(Code.Gameplay.Produce.QualityComponent),
+        typeof(Code.Gameplay.Produce.ShelfComponent),
         typeof(Code.Gameplay.Produce.WorkbenchComponent),
         typeof(Code.Infrastructure.Destroy.Destructed),
         typeof(Code.Infrastructure.Destroy.SelfDestructTimer),

@@ -6,25 +6,21 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Gameplay.Produce;
-using Code.Gameplay.Produce.View;
-
 public partial class GameEntity {
 
-    public GrabbableItem grabbableItem { get { return (GrabbableItem)GetComponent(GameComponentsLookup.GrabbableItem); } }
+    public Code.Gameplay.Produce.GrabbableItem grabbableItem { get { return (Code.Gameplay.Produce.GrabbableItem)GetComponent(GameComponentsLookup.GrabbableItem); } }
     public bool hasGrabbableItem { get { return HasComponent(GameComponentsLookup.GrabbableItem); } }
 
-    public void AddGrabbableItem(ItemsEnum newValue) {
+    public void AddGrabbableItem(Code.Gameplay.Produce.View.ItemsEnum newValue) {
         var index = GameComponentsLookup.GrabbableItem;
-        var component = (GrabbableItem)CreateComponent(index, typeof(GrabbableItem));
+        var component = (Code.Gameplay.Produce.GrabbableItem)CreateComponent(index, typeof(Code.Gameplay.Produce.GrabbableItem));
         component.Value = newValue;
         AddComponent(index, component);
     }
 
-    public void ReplaceGrabbableItem(ItemsEnum newValue) {
+    public void ReplaceGrabbableItem(Code.Gameplay.Produce.View.ItemsEnum newValue) {
         var index = GameComponentsLookup.GrabbableItem;
-        var component = (GrabbableItem)CreateComponent(index, typeof(GrabbableItem));
+        var component = (Code.Gameplay.Produce.GrabbableItem)CreateComponent(index, typeof(Code.Gameplay.Produce.GrabbableItem));
         component.Value = newValue;
         ReplaceComponent(index, component);
     }

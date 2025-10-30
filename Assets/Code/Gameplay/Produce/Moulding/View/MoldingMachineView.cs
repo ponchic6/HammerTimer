@@ -12,15 +12,18 @@ namespace Code.Gameplay.Produce.Moulding.View
         [SerializeField] private List<MoldEnumVisualPair> visuals;
         [SerializeField] private Animator animator;
         [SerializeField] private GameObject moltenIronPlane;
-        private MoldEnum? _currentMold = null;
+        private MoldEnum? _currentMold;
 
         private void Start()
         {
             entityBehaviour.Entity.OnComponentAdded += OnComponentAdded;
+            entityBehaviour.Entity.OnComponentRemoved += OnComponentRemoved;
         }
 
         private void Update()
         {
+            ProcessAnimation();
+
             if (entityBehaviour.Entity.mouldingMachine.MoldEnumValue == MoldEnum.NoMold)
             {
                 if (!_currentMold.HasValue)
@@ -41,6 +44,24 @@ namespace Code.Gameplay.Produce.Moulding.View
             }
         }
 
+        private void ProcessAnimation()
+        {
+            if (!entityBehaviour.Entity.hasMouldingQuality)
+                return;
+            
+            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+            if (stateInfo.normalizedTime >= 1.0f && !animator.IsInTransition(0))
+            {
+                moltenIronPlane.SetActive(false);
+            }
+        }
+
+        private void RemoveSubscribers(IEntity entity)
+        {
+            entityBehaviour.Entity.OnComponentAdded -= OnComponentAdded;
+        }
+
         private void OnComponentAdded(IEntity entity, int index, IComponent component)
         {
             if (index == GameComponentsLookup.MouldingQuality)
@@ -53,9 +74,17 @@ namespace Code.Gameplay.Produce.Moulding.View
                 RemoveSubscribers(entity);
         }
 
-        private void RemoveSubscribers(IEntity entity)
+        private void OnComponentRemoved(IEntity entity, int index, IComponent component)
         {
-            entityBehaviour.Entity.OnComponentAdded -= OnComponentAdded;
+            if (index == GameComponentsLookup.MouldingQuality)
+            {
+                moltenIronPlane.SetActive(false);
+                
+                AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+                if (stateInfo.normalizedTime < 0.92f) 
+                    animator.Play("MoldingAnimation", 0, 0.92f);
+            }
         }
 
         private void StartMoldingAnimation() =>

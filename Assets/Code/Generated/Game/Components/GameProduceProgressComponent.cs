@@ -6,15 +6,12 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Gameplay.Produce.View;
-
 public partial class GameEntity {
 
     public Code.Gameplay.Produce.ProduceProgress produceProgress { get { return (Code.Gameplay.Produce.ProduceProgress)GetComponent(GameComponentsLookup.ProduceProgress); } }
     public bool hasProduceProgress { get { return HasComponent(GameComponentsLookup.ProduceProgress); } }
 
-    public void AddProduceProgress(float newProgress, ItemsEnum newItem) {
+    public void AddProduceProgress(float newProgress, Code.Gameplay.Produce.View.ItemsEnum newItem) {
         var index = GameComponentsLookup.ProduceProgress;
         var component = (Code.Gameplay.Produce.ProduceProgress)CreateComponent(index, typeof(Code.Gameplay.Produce.ProduceProgress));
         component.Progress = newProgress;
@@ -22,7 +19,7 @@ public partial class GameEntity {
         AddComponent(index, component);
     }
 
-    public void ReplaceProduceProgress(float newProgress, ItemsEnum newItem) {
+    public void ReplaceProduceProgress(float newProgress, Code.Gameplay.Produce.View.ItemsEnum newItem) {
         var index = GameComponentsLookup.ProduceProgress;
         var component = (Code.Gameplay.Produce.ProduceProgress)CreateComponent(index, typeof(Code.Gameplay.Produce.ProduceProgress));
         component.Progress = newProgress;

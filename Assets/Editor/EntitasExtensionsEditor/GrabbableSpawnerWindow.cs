@@ -1,5 +1,6 @@
 using System;
 using Code.Gameplay.Interacting.Services;
+using Code.Gameplay.Produce.Moulding;
 using Code.Gameplay.Produce.View;
 using Code.Infrastructure.StaticData;
 using UnityEditor;
@@ -115,16 +116,28 @@ namespace EntitasExtensionsEditor
                     return;
                 }
 
+                // Проверяем, является ли предмет формой (Mold)
+                MoldEnum? moldEnum = GetMoldEnumFromItem(itemType);
+
                 if (_spawnNearPlayer)
                 {
-                    factory.SpawnViewNearWithPlayer(itemType);
-                    Debug.Log($"Spawned {itemType} near player");
+                    // Для SpawnViewNearWithPlayer нужно вызвать SpawnAtPosition с позицией игрока
+                    if (!_gameContext.isPlayer)
+                    {
+                        Debug.LogError("Player not found!");
+                        return;
+                    }
+
+                    GameEntity playerEntity = _gameContext.playerEntity;
+                    Vector3 spawnPosition = playerEntity.transform.Value.position + playerEntity.transform.Value.forward * 2f;
+                    factory.SpawnAtPosition(itemType, spawnPosition, true, moldEnum);
+                    Debug.Log($"Spawned {itemType} near player" + (moldEnum.HasValue ? $" with mold {moldEnum.Value}" : ""));
                 }
                 else
                 {
                     Vector3 position = _useSceneViewPosition ? GetSceneViewPosition() : _spawnPosition;
-                    factory.SpawnAtPosition(itemType, position);
-                    Debug.Log($"Spawned {itemType} at position {position}");
+                    factory.SpawnAtPosition(itemType, position, true, moldEnum);
+                    Debug.Log($"Spawned {itemType} at position {position}" + (moldEnum.HasValue ? $" with mold {moldEnum.Value}" : ""));
                 }
             }
             catch (Exception ex)
@@ -132,6 +145,25 @@ namespace EntitasExtensionsEditor
                 Debug.LogError($"Failed to spawn {itemType}: {ex.Message}");
             }
         }
+
+        private MoldEnum? GetMoldEnumFromItem(ItemsEnum itemType)
+        {
+            string itemName = itemType.ToString();
+
+            // Проверяем, содержит ли название "Mold"
+            if (!itemName.Contains("Mold"))
+                return null;
+
+            // Пытаемся найти соответствующий MoldEnum
+            if (Enum.TryParse<MoldEnum>(itemName, out MoldEnum moldEnum))
+            {
+                return moldEnum;
+            }
+
+            return null;
+        }
+
+        private GameContext _gameContext => Contexts.sharedInstance.game;
 
         private IGrabbableFactory GetGrabbableFactory()
         {

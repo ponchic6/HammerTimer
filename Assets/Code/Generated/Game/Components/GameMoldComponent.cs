@@ -6,26 +6,24 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Gameplay.Produce;
-using Code.Gameplay.Produce.Moulding;
-
 public partial class GameEntity {
 
-    public MoldComponent mold { get { return (MoldComponent)GetComponent(GameComponentsLookup.Mold); } }
+    public Code.Gameplay.Produce.MoldComponent mold { get { return (Code.Gameplay.Produce.MoldComponent)GetComponent(GameComponentsLookup.Mold); } }
     public bool hasMold { get { return HasComponent(GameComponentsLookup.Mold); } }
 
-    public void AddMold(MoldEnum newValue) {
+    public void AddMold(Code.Gameplay.Produce.Moulding.MoldEnum newMold, Code.Gameplay.Produce.View.ItemsEnum newItem) {
         var index = GameComponentsLookup.Mold;
-        var component = (MoldComponent)CreateComponent(index, typeof(MoldComponent));
-        component.Value = newValue;
+        var component = (Code.Gameplay.Produce.MoldComponent)CreateComponent(index, typeof(Code.Gameplay.Produce.MoldComponent));
+        component.Mold = newMold;
+        component.Item = newItem;
         AddComponent(index, component);
     }
 
-    public void ReplaceMold(MoldEnum newValue) {
+    public void ReplaceMold(Code.Gameplay.Produce.Moulding.MoldEnum newMold, Code.Gameplay.Produce.View.ItemsEnum newItem) {
         var index = GameComponentsLookup.Mold;
-        var component = (MoldComponent)CreateComponent(index, typeof(MoldComponent));
-        component.Value = newValue;
+        var component = (Code.Gameplay.Produce.MoldComponent)CreateComponent(index, typeof(Code.Gameplay.Produce.MoldComponent));
+        component.Mold = newMold;
+        component.Item = newItem;
         ReplaceComponent(index, component);
     }
 
