@@ -29,7 +29,7 @@ namespace Code.Gameplay.Interacting.Interactors
 
         public bool TryReleaseItem(EntityBehaviour playerEntityBehavior, GameEntity socketEntity)
         {
-            if (!socketEntity.hasWorkbench)
+            if (!socketEntity.hasWorkbench || socketEntity.hasGrabbedItem)
                 return false;
 
             int grabbableId = playerEntityBehavior.Entity.grabbedItem.Value;

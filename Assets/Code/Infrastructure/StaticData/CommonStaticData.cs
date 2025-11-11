@@ -10,13 +10,15 @@ namespace Code.Infrastructure.StaticData
     [CreateAssetMenu(fileName = "CommonStaticData", menuName = "StaticData/CommonStaticData")]
     public class CommonStaticData : ScriptableObject
     {
+        public ItemSpritesData itemSpritesData;
+        public ItemVisualData itemVisualData;
         public EntityBehaviour playerPrefab;
         public EntityBehaviour shelf;
         public EntityBehaviour produceMachine;
-        public float doubleClickThreshold = 0.2f;
+        public float doubleClickThreshold;
         public AnimationCurve qualityTimeCurve;
+        public float moldingDuration;
         public List<WorkbenchRecipe> workbenchRecipes;
-        public List<EnumPathPair> enumPathPairsList;
         public float maxPlayerSpeed;
         public float acceleration;
         public float forgeTemperatureIncreaseRate;
@@ -26,17 +28,18 @@ namespace Code.Infrastructure.StaticData
         public float itemTemperatureChangeRate;
         public float itemCoolingRate;
         public float environmentTemperature;
+        public float temperatureForMaxForgingQuality;
 
-        public Dictionary<ItemsEnum, string> EnumPathPairs = new();
+        public Dictionary<ItemsEnum, GameObject> EnumVisualPairs = new();
 
         private void OnEnable()
         {
-            EnumPathPairs.Clear();
-            foreach (EnumPathPair pair in enumPathPairsList)
+            EnumVisualPairs.Clear();
+            foreach (EnumVisualPair pair in itemVisualData.prefabs)
             {
-                if (!EnumPathPairs.ContainsKey(pair.@enum))
+                if (!EnumVisualPairs.ContainsKey(pair.@enum))
                 {
-                    EnumPathPairs.Add(pair.@enum, pair.path);
+                    EnumVisualPairs.Add(pair.@enum, pair.visual);
                 }
             }
         }

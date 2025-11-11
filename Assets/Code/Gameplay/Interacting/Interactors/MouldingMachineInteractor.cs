@@ -25,15 +25,20 @@ namespace Code.Gameplay.Interacting.Interactors
             if (!socketEntity.hasMouldingMachine)
                 return false;
 
-            MoldEnum moldEnumValue = socketEntity.mouldingMachine.MoldEnumValue;
+            MoldEnum moldEnumValue = socketEntity.mouldingMachine.MoldEnum;
             
             if (moldEnumValue != MoldEnum.NoMold && !socketEntity.hasMouldingQuality)
             {
-                GameEntity moldEntity = _grabbableFactory.SpawnAtPosition(socketEntity.mold.Item, transform.position, false, socketEntity.mold.Mold);
+                Enum.TryParse(socketEntity.mouldingMachine.MoldEnum.ToString(), out ItemsEnum moldItemEnum);
+                GameEntity moldEntity = _grabbableFactory.SpawnAtPosition(moldItemEnum, transform.position, false, socketEntity.mouldingMachine.MoldEnum, socketEntity.mouldingMachine.Item);
                 playerEntityBehavior.Entity.AddGrabbedItem(moldEntity.id.Value);
-                socketEntity.mouldingMachine.MoldEnumValue = MoldEnum.NoMold;
+                socketEntity.mouldingMachine.MoldEnum = MoldEnum.NoMold;
+                socketEntity.mouldingMachine.Item = ItemsEnum.NoItem;
                 return true;
             }
+            
+            if (!socketEntity.hasGrabbedItem)
+                return false;
 
             int grabbableId = socketEntity.grabbedItem.Value;
             GameEntity grabbableEntity = _game.GetEntityWithId(grabbableId);
@@ -41,7 +46,8 @@ namespace Code.Gameplay.Interacting.Interactors
             playerEntityBehavior.Entity.AddGrabbedItem(grabbableId);
             socketEntity.RemoveMouldingQuality();
             socketEntity.RemoveGrabbedItem();
-            socketEntity.mouldingMachine.MoldEnumValue = MoldEnum.NoMold;
+            socketEntity.mouldingMachine.MoldEnum = MoldEnum.NoMold;
+            socketEntity.mouldingMachine.Item = ItemsEnum.NoItem;
 
             return true;
         }
@@ -54,19 +60,19 @@ namespace Code.Gameplay.Interacting.Interactors
             if (!socketEntity.hasMouldingMachine || (grabbableEntity.grabbableItem.Value != ItemsEnum.MoltenIron && !grabbableEntity.hasMold))
                 return false; ;
             
-            if (grabbableEntity.hasMold && socketEntity.mouldingMachine.MoldEnumValue == MoldEnum.NoMold && grabbableEntity.mold.Mold != MoldEnum.NoMold)
+            if (grabbableEntity.hasMold && socketEntity.mouldingMachine.MoldEnum == MoldEnum.NoMold && grabbableEntity.mold.Mold != MoldEnum.NoMold)
             {
-                socketEntity.mouldingMachine.MoldEnumValue = grabbableEntity.mold.Mold;
+                socketEntity.mouldingMachine.MoldEnum = grabbableEntity.mold.Mold;
+                socketEntity.mouldingMachine.Item = grabbableEntity.mold.Item;
                 playerEntityBehavior.Entity.RemoveGrabbedItem();
                 grabbableEntity.isDestructed = true;
                 return true;
             }
 
-            if (grabbableEntity.grabbableItem.Value == ItemsEnum.MoltenIron && socketEntity.mouldingMachine.MoldEnumValue != MoldEnum.NoMold)
+            if (grabbableEntity.grabbableItem.Value == ItemsEnum.MoltenIron && socketEntity.mouldingMachine.MoldEnum != MoldEnum.NoMold)
             {
-                Enum.TryParse(socketEntity.mouldingMachine.MoldEnumValue.ToString(), out ItemsEnum item);
-                GameEntity producedEntity = _grabbableFactory.SpawnAtPosition(item, transform.position, false);
-                socketEntity.AddMouldingQuality(0f, DateTime.Now.TimeOfDay);
+                GameEntity producedEntity = _grabbableFactory.SpawnAtPosition(socketEntity.mouldingMachine.Item, transform.position, false);
+                socketEntity.AddMouldingQuality(0f, Time.time);
                 socketEntity.AddGrabbedItem(producedEntity.id.Value);
                 playerEntityBehavior.Entity.RemoveGrabbedItem();
                 grabbableEntity.isDestructed = true;

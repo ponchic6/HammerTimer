@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using Code.Infrastructure.StaticData;
 using Entitas;
@@ -25,11 +24,11 @@ namespace Code.Gameplay.Produce.Moulding
         {
             foreach (GameEntity entity in _entities.GetEntities(_buffer))
             {
-                float delta = (float)(DateTime.Now.TimeOfDay - entity.mouldingQuality.StartTime).TotalSeconds;
-                
+                float delta = Time.time - entity.mouldingQuality.StartTime;
+
                 float curveMinTime = _commonStaticData.qualityTimeCurve.keys[0].time;
                 float curveMaxTime = _commonStaticData.qualityTimeCurve.keys[^1].time;
-                float clampedDelta = Mathf.Clamp(delta, curveMinTime, curveMaxTime);
+                float clampedDelta = Mathf.Clamp(delta / _commonStaticData.moldingDuration, curveMinTime, curveMaxTime);
 
                 float evaluatedQuality = _commonStaticData.qualityTimeCurve.Evaluate(clampedDelta);
                 entity.mouldingQuality.Quality = evaluatedQuality;

@@ -30,9 +30,10 @@ namespace Code.Gameplay.Interacting.Interactors
         {
             int grabbableId = playerEntityBehavior.Entity.grabbedItem.Value;
             GameEntity entity = _game.GetEntityWithId(grabbableId);
-            Vector3 spawnPosition = playerEntityBehavior.transform.position + playerEntityBehavior.transform.forward * 2f;
+            Vector3 spawnPosition = playerEntityBehavior.transform.position + playerEntityBehavior.transform.forward;
             entity.AddInitialTransform(spawnPosition, Quaternion.identity);
-            entity.EnableView();
+            entity.AddViewState(true);
+            entity.rigidbody.Value.linearVelocity = Vector3.zero;
             playerEntityBehavior.Entity.RemoveGrabbedItem();
 
             return true;

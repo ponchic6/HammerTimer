@@ -1,4 +1,5 @@
-﻿using Code.Gameplay.Produce.Forge;
+﻿using Code.Gameplay.Produce.Anvil;
+using Code.Gameplay.Produce.Forge;
 using Code.Gameplay.Produce.Moulding;
 using Code.Gameplay.Produce.ProduceMachine;
 using Code.Gameplay.Produce.Workbench;
@@ -10,10 +11,14 @@ namespace Code.Gameplay.Produce.Systems
     {
         public ProduceFeature(ISystemFactory systemFactory)
         {
-            Add(systemFactory.Create<ProduceIncreaseByPlayerSystem>());
             Add(systemFactory.Create<ProduceMachineProduceSystem>());
             
+            Add(systemFactory.Create<ProgressAndQualityForgingSystem>());
+            Add(systemFactory.Create<CoolingOnAnvilSystem>());
+            Add(systemFactory.Create<AnvilProduceSystem>());
+            
             Add(systemFactory.Create<WorkbenchRecipeValidateSystem>());
+            Add(systemFactory.Create<WorkbenchProgressIncreaseSystem>());
             Add(systemFactory.Create<WorkbenchProduceSystem>());
             
             Add(systemFactory.Create<ForgeCoalBurnSystem>());
@@ -23,6 +28,7 @@ namespace Code.Gameplay.Produce.Systems
             Add(systemFactory.Create<IronTemperatureAddSystem>());
 
             Add(systemFactory.Create<MouldingCalculateQualitySystem>());
+            Add(systemFactory.Create<AddMoldToClayFormSystem>());
         }
     }
 }

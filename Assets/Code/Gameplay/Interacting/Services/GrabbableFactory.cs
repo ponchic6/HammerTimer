@@ -32,17 +32,17 @@ namespace Code.Gameplay.Interacting.Services
             SpawnAtPosition(grabbableEnum, spawnPosition);
         }
 
-        public GameEntity SpawnAtPosition(ItemsEnum grabbableEnum, Vector3 position, bool active = true, MoldEnum? moldEnum = null)
+        public GameEntity SpawnAtPosition(ItemsEnum grabbableEnum, Vector3 position, bool active = true, MoldEnum? moldEnum = null, ItemsEnum? mouldItem = null)
         {
             GameEntity entity = _gameContext.CreateEntity();
             entity.AddId(_identifierService.Next());
             entity.AddViewPath("GrabbableItem");
             entity.AddGrabbableItem(grabbableEnum);
             entity.AddInitialTransform(position, Quaternion.identity);
-            entity.AddInitialViewState(active);
+            entity.AddViewState(active);
             
-            if (moldEnum.HasValue)
-                entity.AddMold(moldEnum.Value, grabbableEnum);
+            if (moldEnum.HasValue && mouldItem.HasValue)
+                entity.AddMold(moldEnum.Value, mouldItem.Value);
             
             return entity;
         }

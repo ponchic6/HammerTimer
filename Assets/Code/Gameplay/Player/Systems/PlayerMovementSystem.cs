@@ -6,18 +6,18 @@ namespace Code.Gameplay.Player.Systems
 {
     public class PlayerMovementSystem : IExecuteSystem
     {
-        private readonly GameContext _gameContext;
+        private readonly GameContext _game;
         private readonly IGroup<GameEntity> _players;
         private readonly IGroup<GameEntity> _inputs;
         private readonly CommonStaticData _commonStaticData;
 
         public PlayerMovementSystem(CommonStaticData commonStaticData)
         {
+            _game = Contexts.sharedInstance.game;
             _commonStaticData = commonStaticData;
-            Contexts contexts = Contexts.sharedInstance;
-            _gameContext = contexts.game;
-            _players = _gameContext.GetGroup(GameMatcher.AllOf(GameMatcher.Player, GameMatcher.Transform, GameMatcher.CurrentSpeed));
-            _inputs = _gameContext.GetGroup(GameMatcher.AllOf(GameMatcher.MovementInput));
+            
+            _players = _game.GetGroup(GameMatcher.AllOf(GameMatcher.Player, GameMatcher.Transform, GameMatcher.CurrentSpeed));
+            _inputs = _game.GetGroup(GameMatcher.AllOf(GameMatcher.MovementInput));
         }
 
         public void Execute()
@@ -35,15 +35,14 @@ namespace Code.Gameplay.Player.Systems
                     currentSpeed = Mathf.Max(currentSpeed - _commonStaticData.acceleration * Time.deltaTime, 0f);
 
                 player.ReplaceCurrentSpeed(currentSpeed);
-
-                Vector3 delta = new Vector3(direction.x, 0, direction.y).normalized * currentSpeed * Time.deltaTime;
-                player.transform.Value.position += delta;
+                player.rigidbody.Value.linearVelocity =
+                    new Vector3(direction.x, 0, direction.y).normalized * currentSpeed;
 
                 if (direction.sqrMagnitude > 0.01f)
                 {
                     Vector3 lookDirection = new Vector3(direction.x, 0, direction.y);
                     Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
-                    player.transform.Value.rotation = Quaternion.Slerp(player.transform.Value.rotation, targetRotation, 10f * Time.deltaTime);
+                    player.transform.Value.rotation = Quaternion.Slerp(player.transform.Value.rotation, targetRotation, 20f * Time.deltaTime);
                 }
             }
         }

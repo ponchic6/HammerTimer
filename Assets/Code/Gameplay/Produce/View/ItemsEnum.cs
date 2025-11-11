@@ -2,8 +2,10 @@ namespace Code.Gameplay.Produce.View
 {
     public enum ItemsEnum
     {
+        NoItem,
         Axe,
         AxeBlade,
+        AxeHandle,
         AxeBladeMold,
         Coal,
         Horseshoe,
@@ -14,6 +16,7 @@ namespace Code.Gameplay.Produce.View
         Nail,
         Sword,
         SwordBlade,
+        SwordHandle,
         SwordBladeMold,
         WoodenHandle
     }

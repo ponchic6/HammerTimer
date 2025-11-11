@@ -10,5 +10,5 @@ namespace Code.Infrastructure.View
     [Game] public class ViewPrefab : IComponent { public EntityBehaviour Value; }
     [Game] public class ViewPrefabWithParent : IComponent { public EntityBehaviour Value; public GameObject Parent; }
     [Game] public class InitialTransform : IComponent { public Vector3 Position; public Quaternion Rotation; }
-    [Game] public class InitialViewState : IComponent { public bool Value; }
+    [Game] public class ViewState : IComponent { public bool Value; }
 }

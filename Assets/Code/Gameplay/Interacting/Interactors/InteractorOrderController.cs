@@ -16,6 +16,7 @@ namespace Code.Gameplay.Interacting.Interactors
         [SerializeField] private WorkbenchInteractor workbenchInteractor;
         [SerializeField] private ForgeInteractor forgeInteractor;
         [SerializeField] private MouldingMachineInteractor mouldingMachineInteractor;
+        [SerializeField] private AnvilInteractor anvilInteractor;
         private Collider[] _overlapResults = new Collider[4];
         private GameContext _game;
 
@@ -59,6 +60,8 @@ namespace Code.Gameplay.Interacting.Interactors
                     return;
                 if (mouldingMachineInteractor.TryReleaseItem(_playerEntityBehavior, targetEntity))
                     return;
+                if (anvilInteractor.TryInteractWithItem(_playerEntityBehavior, targetEntity))
+                    return;
             }
             else
             {
@@ -90,6 +93,8 @@ namespace Code.Gameplay.Interacting.Interactors
                 if (forgeInteractor.TryGrabItem(_playerEntityBehavior, socketEntity))
                     return;
                 if (mouldingMachineInteractor.TryGrabItem(_playerEntityBehavior, socketEntity))
+                    return;
+                if (anvilInteractor.TryInteractWithoutItem(_playerEntityBehavior, socketEntity))
                     return;
             }
         }

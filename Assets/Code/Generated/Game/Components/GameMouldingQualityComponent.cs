@@ -11,7 +11,7 @@ public partial class GameEntity {
     public Code.Gameplay.Produce.Moulding.MouldingQualityComponent mouldingQuality { get { return (Code.Gameplay.Produce.Moulding.MouldingQualityComponent)GetComponent(GameComponentsLookup.MouldingQuality); } }
     public bool hasMouldingQuality { get { return HasComponent(GameComponentsLookup.MouldingQuality); } }
 
-    public void AddMouldingQuality(float newQuality, System.TimeSpan newStartTime) {
+    public void AddMouldingQuality(float newQuality, float newStartTime) {
         var index = GameComponentsLookup.MouldingQuality;
         var component = (Code.Gameplay.Produce.Moulding.MouldingQualityComponent)CreateComponent(index, typeof(Code.Gameplay.Produce.Moulding.MouldingQualityComponent));
         component.Quality = newQuality;
@@ -19,7 +19,7 @@ public partial class GameEntity {
         AddComponent(index, component);
     }
 
-    public void ReplaceMouldingQuality(float newQuality, System.TimeSpan newStartTime) {
+    public void ReplaceMouldingQuality(float newQuality, float newStartTime) {
         var index = GameComponentsLookup.MouldingQuality;
         var component = (Code.Gameplay.Produce.Moulding.MouldingQualityComponent)CreateComponent(index, typeof(Code.Gameplay.Produce.Moulding.MouldingQualityComponent));
         component.Quality = newQuality;

@@ -4,6 +4,7 @@ using Code.Gameplay.Produce.StaticData;
 using Code.Gameplay.Produce.View;
 using Code.Infrastructure.StaticData;
 using Entitas;
+using UnityEngine;
 
 namespace Code.Gameplay.Produce.Workbench
 {

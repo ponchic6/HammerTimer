@@ -12,36 +12,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf048ef284704ebe866ef0b8f9b7b211, type: 3}
   m_Name: CommonStaticData
   m_EditorClassIdentifier: 
+  itemSpritesData: {fileID: 11400000, guid: 4b334fbfbc779ac418ab87d539eababc, type: 2}
+  itemVisualData: {fileID: 11400000, guid: 502020383b474eb46bfa47d32ce048bf, type: 2}
   playerPrefab: {fileID: 8684328594479894219, guid: 338b3008a88dd6c4394cef70fb8af1db, type: 3}
   shelf: {fileID: 0}
   produceMachine: {fileID: 0}
-  doubleClickThreshold: 0.2
+  doubleClickThreshold: 0
   qualityTimeCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0.6459954
-      outSlope: 0.6459954
+      inSlope: 1.1872647
+      outSlope: 1.1872647
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 1.5479987
-      value: 1
-      inSlope: -0.021354616
-      outSlope: -0.021354616
+      time: 0.41190705
+      value: 0.48904267
+      inSlope: 3.4937358
+      outSlope: 3.4937358
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 3
+      time: 0.5
+      value: 1
+      inSlope: 0.35317898
+      outSlope: 0.35317898
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.60270554
+      value: 0.4768335
+      inSlope: -3.1470256
+      outSlope: -3.1470256
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
       value: 0
-      inSlope: -0.6887046
-      outSlope: -0.6887046
+      inSlope: -1.2002017
+      outSlope: -1.2002017
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -49,43 +69,17 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  moldingDuration: 10
   workbenchRecipes:
   - {fileID: 11400000, guid: fc672c2dd059c4d48a858a16ef44a7b1, type: 2}
-  enumPathPairsList:
-  - enum: 0
-    path: GrabbableItems/Axe
-  - enum: 1
-    path: GrabbableItems/AxeBlade
-  - enum: 2
-    path: GrabbableItems/AxeBladeMold
-  - enum: 3
-    path: GrabbableItems/Coal
-  - enum: 4
-    path: GrabbableItems/Horseshoe
-  - enum: 5
-    path: GrabbableItems/IngotMold
-  - enum: 6
-    path: GrabbableItems/IronIngot
-  - enum: 7
-    path: GrabbableItems/IronOre
-  - enum: 8
-    path: GrabbableItems/MoltenIron
-  - enum: 9
-    path: GrabbableItems/Nail
-  - enum: 10
-    path: GrabbableItems/Sword
-  - enum: 11
-    path: GrabbableItems/SwordBlade
-  - enum: 12
-    path: GrabbableItems/SwordBladeMold
-  - enum: 13
-    path: GrabbableItems/WoodenHandle
+  - {fileID: 11400000, guid: d466608d73a89384b9589c0114456358, type: 2}
   maxPlayerSpeed: 5
   acceleration: 25
   forgeTemperatureIncreaseRate: 50
   forgeTemperatureDecreaseRate: 20
   forgeMaxTemperature: 2000
   meltingTemperature: 1400
-  itemTemperatureChangeRate: 5
+  itemTemperatureChangeRate: 200
   itemCoolingRate: 50
   environmentTemperature: 25
+  temperatureForMaxForgingQuality: 600

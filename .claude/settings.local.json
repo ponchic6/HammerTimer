@@ -13,7 +13,12 @@
       "WebFetch(domain:stackoverflow.com)",
       "WebFetch(domain:docs.unity3d.com)",
       "WebFetch(domain:gist.github.com)",
-      "WebFetch(domain:blender.stackexchange.com)"
+      "WebFetch(domain:blender.stackexchange.com)",
+      "mcp__UnityMCP__manage_editor",
+      "WebFetch(domain:wiki.unity3d.com)",
+      "WebFetch(domain:forum.unity.com)",
+      "WebFetch(domain:discussions.unity.com)",
+      "mcp__photoshop__photoshop_create_document"
     ],
     "deny": [],
     "ask": []

@@ -8,7 +8,8 @@ namespace Code.Gameplay.Produce.View
     {
         [SerializeField] private float _interactionRadius = 0.5f;
         [SerializeField] private LayerMask _socketLayer;
-        private Collider[] _overlapResults = new Collider[4];
+
+        private readonly Collider[] _overlapResults = new Collider[4];
         private GameContext _game;
 
         [Inject]
@@ -19,36 +20,75 @@ namespace Code.Gameplay.Produce.View
 
         private void Update()
         {
-            if (_game.inputEntity.isInteractDownInput && !_game.isProducingByPlayer && _game.inputEntity.isHoldingInteractInput)
+            bool isHoldingInteract = _game.inputEntity.isHoldingInteractInput;
+            bool isInteractPressed = _game.inputEntity.isInteractDownInput;
+
+            if (isInteractPressed && !_game.isProducingByPlayer && isHoldingInteract)
             {
-                Vector3 position = transform.position + transform.forward;
-                int socketCount = Physics.OverlapSphereNonAlloc(position, _interactionRadius, _overlapResults, _socketLayer);
-                GameEntity socketEntity = socketCount > 0 ? _overlapResults[0].GetComponent<EntityBehaviour>().Entity : null;
-            
-                if (socketEntity != null && (socketEntity.hasWorkbench || socketEntity.hasProduceMachine))
-                    socketEntity.isProducingByPlayer = true;
-                
+                TryStartProduction();
                 return;
             }
-            
-            if (!_game.inputEntity.isHoldingInteractInput)
+
+            if (!isHoldingInteract)
             {
-                if (_game.isProducingByPlayer)
-                {
-                    _game.producingByPlayerEntity.isProducingByPlayer = false;
-                }
+                StopProduction();
                 return;
             }
 
             if (_game.isProducingByPlayer)
             {
-                Vector3 position = transform.position + transform.forward;
-                int socketCount = Physics.OverlapSphereNonAlloc(position, _interactionRadius, _overlapResults, _socketLayer);
-                GameEntity socketEntity = socketCount > 0 ? _overlapResults[0].GetComponent<EntityBehaviour>().Entity : null;
-
-                if (socketEntity == null || (!socketEntity.hasWorkbench && !socketEntity.hasProduceMachine)) 
-                    _game.producingByPlayerEntity.isProducingByPlayer = false;
+                ValidateProduction();
             }
+        }
+
+        private void TryStartProduction()
+        {
+            GameEntity socketEntity = FindSocketEntity();
+
+            if (socketEntity != null && IsProduceMachine(socketEntity))
+            {
+                socketEntity.isProducingByPlayer = true;
+            }
+        }
+
+        private void StopProduction()
+        {
+            if (_game.isProducingByPlayer)
+            {
+                _game.producingByPlayerEntity.isProducingByPlayer = false;
+            }
+        }
+
+        private void ValidateProduction()
+        {
+            GameEntity socketEntity = FindSocketEntity();
+
+            if (socketEntity == null || !IsProduceMachine(socketEntity))
+            {
+                _game.producingByPlayerEntity.isProducingByPlayer = false;
+            }
+        }
+
+        private GameEntity FindSocketEntity()
+        {
+            Vector3 searchPosition = transform.position + transform.forward;
+            int socketCount = Physics.OverlapSphereNonAlloc(
+                searchPosition,
+                _interactionRadius,
+                _overlapResults,
+                _socketLayer
+            );
+
+            if (socketCount == 0)
+                return null;
+
+            EntityBehaviour entityBehaviour = _overlapResults[0].GetComponent<EntityBehaviour>();
+            return entityBehaviour?.Entity;
+        }
+
+        private bool IsProduceMachine(GameEntity entity)
+        {
+            return entity.hasWorkbench || entity.hasProduceMachine || entity.hasAnvil;
         }
     }
 }

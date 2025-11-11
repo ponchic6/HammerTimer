@@ -11,17 +11,19 @@ public partial class GameEntity {
     public Code.Gameplay.Produce.Moulding.MouldingMachineComponent mouldingMachine { get { return (Code.Gameplay.Produce.Moulding.MouldingMachineComponent)GetComponent(GameComponentsLookup.MouldingMachine); } }
     public bool hasMouldingMachine { get { return HasComponent(GameComponentsLookup.MouldingMachine); } }
 
-    public void AddMouldingMachine(Code.Gameplay.Produce.Moulding.MoldEnum newMoldEnumValue) {
+    public void AddMouldingMachine(Code.Gameplay.Produce.Moulding.MoldEnum newMoldEnum, Code.Gameplay.Produce.View.ItemsEnum newItem) {
         var index = GameComponentsLookup.MouldingMachine;
         var component = (Code.Gameplay.Produce.Moulding.MouldingMachineComponent)CreateComponent(index, typeof(Code.Gameplay.Produce.Moulding.MouldingMachineComponent));
-        component.MoldEnumValue = newMoldEnumValue;
+        component.MoldEnum = newMoldEnum;
+        component.Item = newItem;
         AddComponent(index, component);
     }
 
-    public void ReplaceMouldingMachine(Code.Gameplay.Produce.Moulding.MoldEnum newMoldEnumValue) {
+    public void ReplaceMouldingMachine(Code.Gameplay.Produce.Moulding.MoldEnum newMoldEnum, Code.Gameplay.Produce.View.ItemsEnum newItem) {
         var index = GameComponentsLookup.MouldingMachine;
         var component = (Code.Gameplay.Produce.Moulding.MouldingMachineComponent)CreateComponent(index, typeof(Code.Gameplay.Produce.Moulding.MouldingMachineComponent));
-        component.MoldEnumValue = newMoldEnumValue;
+        component.MoldEnum = newMoldEnum;
+        component.Item = newItem;
         ReplaceComponent(index, component);
     }
 

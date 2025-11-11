@@ -115,9 +115,8 @@ namespace EntitasExtensionsEditor
                     Debug.LogError("GrabbableFactory not found! Make sure Zenject is properly set up.");
                     return;
                 }
-
-                // Проверяем, является ли предмет формой (Mold)
-                MoldEnum? moldEnum = GetMoldEnumFromItem(itemType);
+                
+                ItemsEnum? mouldItem = GetMouldItemFromMold(itemType);
 
                 if (_spawnNearPlayer)
                 {
@@ -130,14 +129,12 @@ namespace EntitasExtensionsEditor
 
                     GameEntity playerEntity = _gameContext.playerEntity;
                     Vector3 spawnPosition = playerEntity.transform.Value.position + playerEntity.transform.Value.forward * 2f;
-                    factory.SpawnAtPosition(itemType, spawnPosition, true, moldEnum);
-                    Debug.Log($"Spawned {itemType} near player" + (moldEnum.HasValue ? $" with mold {moldEnum.Value}" : ""));
+                    factory.SpawnAtPosition(itemType, spawnPosition, true);
                 }
                 else
                 {
                     Vector3 position = _useSceneViewPosition ? GetSceneViewPosition() : _spawnPosition;
-                    factory.SpawnAtPosition(itemType, position, true, moldEnum);
-                    Debug.Log($"Spawned {itemType} at position {position}" + (moldEnum.HasValue ? $" with mold {moldEnum.Value}" : ""));
+                    factory.SpawnAtPosition(itemType, position, true);
                 }
             }
             catch (Exception ex)
@@ -145,19 +142,29 @@ namespace EntitasExtensionsEditor
                 Debug.LogError($"Failed to spawn {itemType}: {ex.Message}");
             }
         }
-
-        private MoldEnum? GetMoldEnumFromItem(ItemsEnum itemType)
+        
+        private ItemsEnum? GetMouldItemFromMold(ItemsEnum itemType)
         {
             string itemName = itemType.ToString();
 
-            // Проверяем, содержит ли название "Mold"
+            // Проверяем, является ли это формой
             if (!itemName.Contains("Mold"))
                 return null;
 
-            // Пытаемся найти соответствующий MoldEnum
-            if (Enum.TryParse<MoldEnum>(itemName, out MoldEnum moldEnum))
+            // Явный маппинг для особых случаев
+            switch (itemType)
             {
-                return moldEnum;
+                case ItemsEnum.IngotMold:
+                    return ItemsEnum.IronIngot;
+            }
+
+            // Убираем "Mold" из названия, чтобы получить название предмета
+            string itemBaseName = itemName.Replace("Mold", "");
+
+            // Пытаемся найти соответствующий предмет
+            if (Enum.TryParse<ItemsEnum>(itemBaseName, out ItemsEnum resultItem))
+            {
+                return resultItem;
             }
 
             return null;

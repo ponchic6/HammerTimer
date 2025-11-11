@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using Code.Infrastructure.StaticData;
 using Code.Infrastructure.View;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Code.Gameplay.Produce.Forge.View
 {
@@ -13,9 +15,15 @@ namespace Code.Gameplay.Produce.Forge.View
         [SerializeField] private TMP_Text forgeTemperatureText;
         [SerializeField] private Image itemTemperatureSlider;
         [SerializeField] private Image backgroundImage;
-        [SerializeField] private float updateInterval;
         private GameContext _game;
         private bool _hasVfx;
+        private CommonStaticData _commonStaticData;
+
+        [Inject]
+        public void Construct(CommonStaticData commonStaticData)
+        {
+            _commonStaticData = commonStaticData;
+        }
 
         private void Start()
         {
@@ -24,7 +32,8 @@ namespace Code.Gameplay.Produce.Forge.View
 
         private void Update()
         {
-            forgeTemperatureText.SetText(entityBehaviour.Entity.forge.Temperature.ToString("F0"));
+            int roundedTemp = Mathf.RoundToInt(entityBehaviour.Entity.forge.Temperature / 100f) * 100;
+            forgeTemperatureText.SetText($"<mspace=0.34em>{roundedTemp}°C</mspace>");
             UpdateGrabbedTemperature();
 
             if (Mathf.Approximately(entityBehaviour.Entity.forge.Temperature, 25))
@@ -56,7 +65,7 @@ namespace Code.Gameplay.Produce.Forge.View
                 }
                 
                 float itemTemp = _game.GetEntityWithId(entityBehaviour.Entity.grabbedItem.Value).grabbableTemperature.Value;
-                itemTemperatureSlider.fillAmount = itemTemp / 2000f;
+                itemTemperatureSlider.fillAmount = itemTemp / _commonStaticData.meltingTemperature;
             }
             else
             {

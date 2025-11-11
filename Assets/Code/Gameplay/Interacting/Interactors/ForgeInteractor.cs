@@ -45,7 +45,9 @@ namespace Code.Gameplay.Interacting.Interactors
                 return true;
             }
 
-            if (grabbableEntity.hasGrabbableTemperature && grabbableItemType is ItemsEnum.IronIngot or ItemsEnum.MoltenIron)
+            if (grabbableEntity.hasGrabbableTemperature && 
+                grabbableItemType is ItemsEnum.IronIngot or ItemsEnum.MoltenIron 
+                && !socketEntity.hasGrabbedItem)
             {
                 playerEntityBehavior.Entity.RemoveGrabbedItem();
                 socketEntity.AddGrabbedItem(grabbableId);

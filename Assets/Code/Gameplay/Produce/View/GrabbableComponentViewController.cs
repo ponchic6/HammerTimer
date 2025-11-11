@@ -1,5 +1,6 @@
 ﻿using Code.Infrastructure.StaticData;
 using Code.Infrastructure.View;
+using DG.Tweening;
 using Entitas;
 using UnityEngine;
 
@@ -64,18 +65,26 @@ namespace Code.Gameplay.Produce.View
         private void SpawnItemView()
         {
             ItemsEnum itemType = _entityBehaviour.Entity.grabbableItem.Value;
-            _commonStaticData.EnumPathPairs.TryGetValue(itemType, out string prefabPath);
-            GameObject prefab = Resources.Load<GameObject>(prefabPath);
-            
-            _currentItemView = Instantiate(prefab, transform);
-            _currentItemView.transform.localPosition = Vector3.zero;
-            _currentItemView.transform.localRotation = Quaternion.identity;
+            _commonStaticData.EnumVisualPairs.TryGetValue(itemType, out GameObject visualPrefab);
+
+            _currentItemView = Instantiate(visualPrefab, transform);
+            _currentItemView.transform.localPosition = new Vector3(0f, 0.2f, 0f);
+            _currentItemView.transform.localRotation = Quaternion.Euler(20f, 0f, 0f);
+
+            _currentItemView.transform.DOLocalRotate(new Vector3(20f, 360f, 0f), 3f, RotateMode.FastBeyond360)
+                .SetEase(Ease.Linear)
+                .SetLoops(-1, LoopType.Restart);
+
+            _currentItemView.transform.DOLocalMoveY(0.5f, 1.5f)
+                .SetEase(Ease.InOutSine)
+                .SetLoops(-1, LoopType.Yoyo);
         }
 
         private void DestroyCurrentItemView()
         {
             if (_currentItemView != null)
             {
+                _currentItemView.transform.DOKill();
                 Destroy(_currentItemView);
                 _currentItemView = null;
             }
