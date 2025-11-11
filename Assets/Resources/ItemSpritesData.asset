@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17206632976c4feda4182d02e3408cc7, type: 3}
+  m_Name: ItemSpritesData
+  m_EditorClassIdentifier: 
+  spritesPairs:
+  - Enum: 1
+    Sprite: {fileID: 21300000, guid: 2b33e2e1fe6faab46ba5be6f286b7bff, type: 3}
+  - Enum: 2
+    Sprite: {fileID: 21300000, guid: 973677287b6e463489bc1a516a2ec5a2, type: 3}
+  - Enum: 3
+    Sprite: {fileID: 21300000, guid: 00bf9f0f31bcb864e8582b3a42f5b2e0, type: 3}
+  - Enum: 4
+    Sprite: {fileID: 21300000, guid: 1f72c8e1352e919479648602f8730e47, type: 3}
+  - Enum: 5
+    Sprite: {fileID: 21300000, guid: fee3fc07d29315c449c939233355511d, type: 3}
+  - Enum: 6
+    Sprite: {fileID: 21300000, guid: 6d37cb9a70a87bc4ebfbd2547b8165af, type: 3}
+  - Enum: 7
+    Sprite: {fileID: 21300000, guid: c93e55eabc37ed847b01f5a8adfcd88d, type: 3}
+  - Enum: 8
+    Sprite: {fileID: 21300000, guid: 5adbc09690408e243b9a30b2ab0212e4, type: 3}
+  - Enum: 10
+    Sprite: {fileID: 21300000, guid: 8b33cfe431981b843a58387e8934af83, type: 3}
+  - Enum: 11
+    Sprite: {fileID: 21300000, guid: 703197c20804b2f428293f3eb8332ead, type: 3}
+  - Enum: 12
+    Sprite: {fileID: 21300000, guid: a05fcc372bd722e4089c90465c4c0b5f, type: 3}
+  - Enum: 13
+    Sprite: {fileID: 21300000, guid: 88ee0ac7ee5acf746b91d13d60c566fc, type: 3}
+  - Enum: 15
+    Sprite: {fileID: 21300000, guid: 819c22dc148a81645aefd551f51fb0eb, type: 3}
+  - Enum: 14
+    Sprite: {fileID: 21300000, guid: 21ead51255e299342a6741ce170db6e2, type: 3}
