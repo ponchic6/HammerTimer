@@ -23,10 +23,9 @@ namespace Code.Gameplay.Produce.Forge
             foreach (GameEntity entity in _entities)
             {
                 GameEntity grabbableEntity = _game.GetEntityWithId(entity.grabbedItem.Value);
-
-                float targetTemperature = entity.forge.Temperature;
-                float currentTemperature = grabbableEntity.grabbableTemperature.Value;
-                grabbableEntity.grabbableTemperature.Value = Mathf.MoveTowards(currentTemperature, targetTemperature, _commonStaticData.itemTemperatureChangeRate * Time.deltaTime);
+                grabbableEntity.grabbableTemperature.Value = Mathf.Min(2000f,
+                    grabbableEntity.grabbableTemperature.Value + Time.deltaTime * entity.forge.Power *
+                    _commonStaticData.itemTemperatureChangeRate);
             }
         }
     }

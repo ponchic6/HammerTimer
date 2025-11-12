@@ -6,7 +6,7 @@ namespace Code.Gameplay.Interacting.Interactors
     public class InteractorOrderController : MonoBehaviour
     {
         [SerializeField] private EntityBehaviour _playerEntityBehavior;
-        [SerializeField] private float _interactionRadius = 0.5f;
+        [SerializeField] private float _interactionDistance;
         [SerializeField] private LayerMask _socketLayer;
         [SerializeField] private LayerMask _grabbableLayer;
         [SerializeField] private FreeItemInteractor freeItemInteractor;
@@ -17,7 +17,6 @@ namespace Code.Gameplay.Interacting.Interactors
         [SerializeField] private ForgeInteractor forgeInteractor;
         [SerializeField] private MouldingMachineInteractor mouldingMachineInteractor;
         [SerializeField] private AnvilInteractor anvilInteractor;
-        private Collider[] _overlapResults = new Collider[4];
         private GameContext _game;
 
         private void Start()
@@ -36,79 +35,73 @@ namespace Code.Gameplay.Interacting.Interactors
 
         private void ProcessSingleItemInteractions()
         {
-            Vector3 interactionPosition = transform.position + transform.forward;
-
             if (_playerEntityBehavior.Entity.hasGrabbedItem)
             {
-                int socketCount = Physics.OverlapSphereNonAlloc(interactionPosition, _interactionRadius, _overlapResults, _socketLayer);
+                RaycastHit hit;
+                
+                if (Physics.Raycast(transform.position + transform.up * 0.5f, transform.forward, out hit, _interactionDistance, _socketLayer))
+                {
+                    GameEntity targetEntity = hit.collider.GetComponentInParent<EntityBehaviour>().Entity;
 
-                if (socketCount <= 0)
+                    if (shelfSocketInteractor.TryReleaseItem(_playerEntityBehavior, targetEntity))
+                        return;
+                    if (produceMachineInteractor.TryReleaseItem(_playerEntityBehavior, targetEntity))
+                        return;
+                    if (workbenchInteractor.TryReleaseItem(_playerEntityBehavior, targetEntity))
+                        return;
+                    if (forgeInteractor.TryReleaseItem(_playerEntityBehavior, targetEntity))
+                        return;
+                    if (mouldingMachineInteractor.TryReleaseItem(_playerEntityBehavior, targetEntity))
+                        return;
+                    if (anvilInteractor.TryInteractWithItem(_playerEntityBehavior, targetEntity))
+                        return;
+                }
+                else
                 {
                     freeItemInteractor.TryReleaseItem(_playerEntityBehavior);
-                    return;
                 }
-
-                GameEntity targetEntity = _overlapResults[0].GetComponentInParent<EntityBehaviour>().Entity;
-
-                if (shelfSocketInteractor.TryReleaseItem(_playerEntityBehavior, targetEntity))
-                    return;
-                if (produceMachineInteractor.TryReleaseItem(_playerEntityBehavior, targetEntity))
-                    return;
-                if (workbenchInteractor.TryReleaseItem(_playerEntityBehavior, targetEntity))
-                    return;
-                if (forgeInteractor.TryReleaseItem(_playerEntityBehavior, targetEntity))
-                    return;
-                if (mouldingMachineInteractor.TryReleaseItem(_playerEntityBehavior, targetEntity))
-                    return;
-                if (anvilInteractor.TryInteractWithItem(_playerEntityBehavior, targetEntity))
-                    return;
             }
             else
             {
-                int grabbableCount = Physics.OverlapSphereNonAlloc(interactionPosition, _interactionRadius, _overlapResults, _grabbableLayer);
-
-                if (grabbableCount > 0)
+                RaycastHit hit;
+                if (Physics.Raycast(transform.position + transform.up * 0.5f, transform.forward, out hit, _interactionDistance, _grabbableLayer))
                 {
-                    GameEntity targetEntity = _overlapResults[0].GetComponentInParent<EntityBehaviour>().Entity;
+                    GameEntity targetEntity = hit.collider.GetComponentInParent<EntityBehaviour>().Entity;
 
                     if (freeItemInteractor.TryGrabItem(_playerEntityBehavior, targetEntity))
                         return;
                 }
 
-                int socketCount = Physics.OverlapSphereNonAlloc(interactionPosition, _interactionRadius, _overlapResults, _socketLayer);
-                
-                if (socketCount <= 0)
-                    return;
+                if (Physics.Raycast(transform.position + transform.up * 0.5f, transform.forward, out hit, _interactionDistance, _socketLayer))
+                {
+                    GameEntity socketEntity = hit.collider.GetComponentInParent<EntityBehaviour>().Entity;
 
-                GameEntity socketEntity = _overlapResults[0].GetComponentInParent<EntityBehaviour>().Entity;
-
-                if (shelfSocketInteractor.TryGrabItem(_playerEntityBehavior, socketEntity))
-                    return;
-                if (infinityBoxInteractor.TryGrabItem(_playerEntityBehavior, socketEntity))
-                    return;
-                if (produceMachineInteractor.TryGrabItem(_playerEntityBehavior, socketEntity))
-                    return;
-                if (workbenchInteractor.TryGrabItem(_playerEntityBehavior, socketEntity))
-                    return;
-                if (forgeInteractor.TryGrabItem(_playerEntityBehavior, socketEntity))
-                    return;
-                if (mouldingMachineInteractor.TryGrabItem(_playerEntityBehavior, socketEntity))
-                    return;
-                if (anvilInteractor.TryInteractWithoutItem(_playerEntityBehavior, socketEntity))
-                    return;
+                    if (shelfSocketInteractor.TryGrabItem(_playerEntityBehavior, socketEntity))
+                        return;
+                    if (infinityBoxInteractor.TryGrabItem(_playerEntityBehavior, socketEntity))
+                        return;
+                    if (produceMachineInteractor.TryGrabItem(_playerEntityBehavior, socketEntity))
+                        return;
+                    if (workbenchInteractor.TryGrabItem(_playerEntityBehavior, socketEntity))
+                        return;
+                    if (forgeInteractor.TryGrabItem(_playerEntityBehavior, socketEntity))
+                        return;
+                    if (mouldingMachineInteractor.TryGrabItem(_playerEntityBehavior, socketEntity))
+                        return;
+                    if (anvilInteractor.TryInteractWithoutItem(_playerEntityBehavior, socketEntity))
+                        return;
+                }
             }
         }
 
         private void ProcessDoubleItemInteractions()
         {
-            Vector3 interactionPosition = transform.position + transform.forward;
-            int socketCount = Physics.OverlapSphereNonAlloc(interactionPosition, _interactionRadius, _overlapResults, _socketLayer);
-
-            if (socketCount <= 0)
-                return;
-
-            GameEntity socketEntity = _overlapResults[0].GetComponent<EntityBehaviour>().Entity;
-            workbenchInteractor.TryClearWorkbench(socketEntity);
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward, out hit, _interactionDistance, _socketLayer))
+            {
+                GameEntity socketEntity = hit.collider.GetComponent<EntityBehaviour>().Entity;
+                workbenchInteractor.TryClearWorkbench(socketEntity);
+            }
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Code.Gameplay.Produce.Systems
             Add(systemFactory.Create<WorkbenchProgressIncreaseSystem>());
             Add(systemFactory.Create<WorkbenchProduceSystem>());
             
-            Add(systemFactory.Create<ForgeCoalBurnSystem>());
+            Add(systemFactory.Create<ForgePowerDecreaseSystem>());
             Add(systemFactory.Create<TemperatureIncreaseByForgeSystem>());
             Add(systemFactory.Create<CoolingOutsideForgeSystem>());
             Add(systemFactory.Create<IronAggregationStateSystem>());

@@ -11,19 +11,17 @@ public partial class GameEntity {
     public Code.Gameplay.Produce.Forge.ForgeComponent forge { get { return (Code.Gameplay.Produce.Forge.ForgeComponent)GetComponent(GameComponentsLookup.Forge); } }
     public bool hasForge { get { return HasComponent(GameComponentsLookup.Forge); } }
 
-    public void AddForge(float newCoal, float newTemperature) {
+    public void AddForge(float newPower) {
         var index = GameComponentsLookup.Forge;
         var component = (Code.Gameplay.Produce.Forge.ForgeComponent)CreateComponent(index, typeof(Code.Gameplay.Produce.Forge.ForgeComponent));
-        component.Coal = newCoal;
-        component.Temperature = newTemperature;
+        component.Power = newPower;
         AddComponent(index, component);
     }
 
-    public void ReplaceForge(float newCoal, float newTemperature) {
+    public void ReplaceForge(float newPower) {
         var index = GameComponentsLookup.Forge;
         var component = (Code.Gameplay.Produce.Forge.ForgeComponent)CreateComponent(index, typeof(Code.Gameplay.Produce.Forge.ForgeComponent));
-        component.Coal = newCoal;
-        component.Temperature = newTemperature;
+        component.Power = newPower;
         ReplaceComponent(index, component);
     }
 

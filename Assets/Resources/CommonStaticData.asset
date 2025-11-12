@@ -75,11 +75,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d466608d73a89384b9589c0114456358, type: 2}
   maxPlayerSpeed: 5
   acceleration: 25
-  forgeTemperatureIncreaseRate: 50
-  forgeTemperatureDecreaseRate: 20
-  forgeMaxTemperature: 2000
+  forgePowerDecreaseBase: 0.1
+  oneCoalPower: 1000
+  forgeMaxPower: 2000
   meltingTemperature: 1400
-  itemTemperatureChangeRate: 200
+  itemTemperatureChangeRate: 0.18
   itemCoolingRate: 50
   environmentTemperature: 25
   temperatureForMaxForgingQuality: 600

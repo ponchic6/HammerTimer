@@ -20,14 +20,7 @@ namespace Code.Gameplay.Produce.Moulding.View
         [SerializeField] private float centerX;
         [SerializeField] private float rightBounderX;
         private MoldEnum? _currentMold;
-        private CommonStaticData _commonStaticData;
 
-        [Inject]
-        public void Construct(CommonStaticData commonStaticData)
-        {
-            _commonStaticData = commonStaticData;       
-        }
-        
         private void Start()
         {
             entityBehaviour.Entity.OnComponentAdded += OnComponentAdded;
@@ -45,24 +38,22 @@ namespace Code.Gameplay.Produce.Moulding.View
         {
             if (entityBehaviour.Entity.hasMouldingQuality)
             {
-                if (qualityCursor.transform.localPosition.x < centerX)
-                {
-                    Vector3 newLocPos = new Vector3(
-                        leftBounderX + entityBehaviour.Entity.mouldingQuality.Quality * (centerX - leftBounderX),
-                        qualityCursor.transform.localPosition.y,
-                        qualityCursor.transform.localPosition.z);
-                
-                    qualityCursor.transform.localPosition = newLocPos;
-                }
+                float currentX = qualityCursor.transform.localPosition.x;
+                float newX;
+
+                if (currentX < centerX)
+                    newX = leftBounderX + entityBehaviour.Entity.mouldingQuality.Quality * (centerX - leftBounderX);
                 else
-                {
-                    Vector3 newLocPos = new Vector3(
-                        rightBounderX - entityBehaviour.Entity.mouldingQuality.Quality * (-centerX + rightBounderX),
-                        qualityCursor.transform.localPosition.y,
-                        qualityCursor.transform.localPosition.z);
-                
-                    qualityCursor.transform.localPosition = newLocPos;
-                }
+                    newX = rightBounderX - entityBehaviour.Entity.mouldingQuality.Quality * (-centerX + rightBounderX);
+
+                newX = Mathf.Max(currentX, newX);
+
+                Vector3 newLocPos = new Vector3(
+                    newX,
+                    qualityCursor.transform.localPosition.y,
+                    qualityCursor.transform.localPosition.z);
+
+                qualityCursor.transform.localPosition = newLocPos;
             }
             else
             {

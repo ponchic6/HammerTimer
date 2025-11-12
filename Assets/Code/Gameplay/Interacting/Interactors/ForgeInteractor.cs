@@ -1,4 +1,5 @@
 ﻿using Code.Gameplay.Produce.View;
+using Code.Infrastructure.StaticData;
 using Code.Infrastructure.View;
 using UnityEngine;
 using Zenject;
@@ -7,11 +8,13 @@ namespace Code.Gameplay.Interacting.Interactors
 {
     public class ForgeInteractor : MonoBehaviour
     {
+        private CommonStaticData _commonStaticData;
         private GameContext _game;
 
         [Inject]
-        public void Construct()
+        public void Construct(CommonStaticData commonStaticData)
         {
+            _commonStaticData = commonStaticData;
             _game = Contexts.sharedInstance.game;
         }
         
@@ -39,7 +42,7 @@ namespace Code.Gameplay.Interacting.Interactors
             
             if (grabbableItemType == ItemsEnum.Coal)
             {
-                socketEntity.forge.Coal += 30f;
+                socketEntity.forge.Power = Mathf.Min(_commonStaticData.forgeMaxPower, socketEntity.forge.Power + _commonStaticData.oneCoalPower);
                 playerEntityBehavior.Entity.RemoveGrabbedItem();
                 grabbableEntity.isDestructed = true;
                 return true;

@@ -21,9 +21,9 @@ namespace Code.Infrastructure.StaticData
         public List<WorkbenchRecipe> workbenchRecipes;
         public float maxPlayerSpeed;
         public float acceleration;
-        public float forgeTemperatureIncreaseRate;
-        public float forgeTemperatureDecreaseRate;
-        public float forgeMaxTemperature;
+        public float forgePowerDecreaseBase;
+        public float oneCoalPower;
+        public float forgeMaxPower;
         public float meltingTemperature;
         public float itemTemperatureChangeRate;
         public float itemCoolingRate;
