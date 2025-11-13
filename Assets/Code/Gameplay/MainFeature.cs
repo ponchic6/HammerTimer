@@ -1,4 +1,5 @@
 ﻿using Code.Gameplay.Input.Systems;
+using Code.Gameplay.Orders.Systems;
 using Code.Gameplay.Player.Systems;
 using Code.Gameplay.Produce.Systems;
 using Code.Infrastructure.Destroy;
@@ -15,7 +16,9 @@ namespace Code.Gameplay
             Add(systemFactory.Create<InputFeature>());
             Add(systemFactory.Create<PlayerFeature>());
             Add(systemFactory.Create<ProduceFeature>());
+            Add(systemFactory.Create<OrderFeature>());
             Add(systemFactory.Create<DestroyFeature>());
         }
     }
 }
+

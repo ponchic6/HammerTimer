@@ -17,35 +17,37 @@ public static class GameComponentsLookup {
     public const int InteractDownInput = 6;
     public const int MovementInput = 7;
     public const int TimeOfInteractDownInput = 8;
-    public const int CurrentSpeed = 9;
-    public const int GrabbedItem = 10;
-    public const int Player = 11;
-    public const int PlayerAnimator = 12;
-    public const int Anvil = 13;
-    public const int AnvilQuality = 14;
-    public const int Forge = 15;
-    public const int GrabbableTemperature = 16;
-    public const int GrabbableItem = 17;
-    public const int InfinityBox = 18;
-    public const int Mold = 19;
-    public const int MouldingMachine = 20;
-    public const int MouldingQuality = 21;
-    public const int ProduceMachine = 22;
-    public const int ProduceProgress = 23;
-    public const int ProducingByPlayer = 24;
-    public const int Quality = 25;
-    public const int Shelf = 26;
-    public const int Workbench = 27;
-    public const int Destructed = 28;
-    public const int SelfDestructTimer = 29;
-    public const int InitialTransform = 30;
-    public const int View = 31;
-    public const int ViewPath = 32;
-    public const int ViewPrefab = 33;
-    public const int ViewPrefabWithParent = 34;
-    public const int ViewState = 35;
+    public const int Order = 9;
+    public const int OrderCreationCooldown = 10;
+    public const int CurrentSpeed = 11;
+    public const int GrabbedItem = 12;
+    public const int Player = 13;
+    public const int PlayerAnimator = 14;
+    public const int Anvil = 15;
+    public const int AnvilQuality = 16;
+    public const int Forge = 17;
+    public const int GrabbableTemperature = 18;
+    public const int GrabbableItem = 19;
+    public const int InfinityBox = 20;
+    public const int Mold = 21;
+    public const int MouldingMachine = 22;
+    public const int MouldingQuality = 23;
+    public const int ProduceMachine = 24;
+    public const int ProduceProgress = 25;
+    public const int ProducingByPlayer = 26;
+    public const int Quality = 27;
+    public const int Shelf = 28;
+    public const int Workbench = 29;
+    public const int Destructed = 30;
+    public const int SelfDestructTimer = 31;
+    public const int InitialTransform = 32;
+    public const int View = 33;
+    public const int ViewPath = 34;
+    public const int ViewPrefab = 35;
+    public const int ViewPrefabWithParent = 36;
+    public const int ViewState = 37;
 
-    public const int TotalComponents = 36;
+    public const int TotalComponents = 38;
 
     public static readonly string[] componentNames = {
         "Id",
@@ -57,6 +59,8 @@ public static class GameComponentsLookup {
         "InteractDownInput",
         "MovementInput",
         "TimeOfInteractDownInput",
+        "Order",
+        "OrderCreationCooldown",
         "CurrentSpeed",
         "GrabbedItem",
         "Player",
@@ -96,6 +100,8 @@ public static class GameComponentsLookup {
         typeof(Code.Gameplay.Input.InteractDownInput),
         typeof(Code.Gameplay.Input.MovementInputComponent),
         typeof(Code.Gameplay.Input.TimeOfInteractDownInput),
+        typeof(Code.Gameplay.Orders.Order),
+        typeof(Code.Gameplay.Orders.OrderCreationCooldown),
         typeof(Code.Gameplay.Player.CurrentSpeedComponent),
         typeof(Code.Gameplay.Player.GrabbedItem),
         typeof(Code.Gameplay.Player.Player),
