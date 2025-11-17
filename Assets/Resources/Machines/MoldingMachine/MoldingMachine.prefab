@@ -221,7 +221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _entityBehaviour: {fileID: 3077433240493777577}
   _componentsToAdd:
-  - componentIndex: 17
+  - componentName: 
     fieldValues:
     - fieldName: Value
       fieldType: Code.Gameplay.Produce.View.ItemsEnum
@@ -251,8 +251,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 2.0779452, z: 2}
-  m_Center: {x: 0.28319716, y: 0.60160834, z: 0.017716527}
+  m_Size: {x: 2, y: 2.75, z: 2}
+  m_Center: {x: 0, y: 0.6929114, z: 0}
 --- !u!114 &5987741672429713953
 MonoBehaviour:
   m_ObjectHideFlags: 0

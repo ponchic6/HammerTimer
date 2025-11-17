@@ -9488,7 +9488,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _entityBehaviour: {fileID: 664098952152067611}
   _componentsToAdd:
-  - componentIndex: 15
+  - componentName: 
     fieldValues:
     - fieldName: Coal
       fieldType: System.Single
@@ -9559,8 +9559,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 2.9032562, z: 1}
-  m_Center: {x: 0.009924173, y: 1.4516281, z: -0.09}
+  m_Size: {x: 1, y: 1.3756139, z: 1}
+  m_Center: {x: 0, y: 0.6929114, z: 0}
 --- !u!1 &7896348914086491702
 GameObject:
   m_ObjectHideFlags: 0

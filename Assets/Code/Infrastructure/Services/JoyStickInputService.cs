@@ -8,11 +8,22 @@ namespace Code.Infrastructure.Services
         public Vector2 GetMoveDirection() =>
             VirtualJoystick.GetAxis();
 
-        public bool GetInteractKeyDown() =>
-            Input.GetKeyDown(KeyCode.Space);
+        public bool GetInteractKeyDown()
+        {
+            bool interaction = VirtualJoystick.GetInteraction();
+            if (interaction)
+            {
+                VirtualJoystick.ResetInteraction();
+                return true;
+            }
 
-        public bool GetInteractKey() =>
-            Input.GetKey(KeyCode.Space);
+            return Input.GetKeyDown(KeyCode.Space);
+        }
+
+        public bool GetInteractKey()
+        {
+            return Input.GetKeyDown(KeyCode.Space);
+        }
 
         public void HoldKey(KeyCode keyCode)
         {

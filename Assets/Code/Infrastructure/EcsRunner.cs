@@ -18,13 +18,13 @@ namespace Code.Infrastructure
 
         private void Start()
         {
+            Application.targetFrameRate = 60;
             _mainFeature = _systemFactory.Create<MainFeature>();
             _mainFeature.Initialize();
         }
 
         private void Update()
         {
-            Mathf.Sqrt(10000042305);
             _mainFeature.Execute();
             _mainFeature.Cleanup();
         }
