@@ -6,8 +6,10 @@ namespace Code.Gameplay.Orders.Systems
     {
         public OrderFeature(ISystemFactory systemFactory)
         {
+            Add(systemFactory.Create<OrderInitializeSystem>());
             Add(systemFactory.Create<OrderCreationSystem>());
             Add(systemFactory.Create<OrderTimerSystem>());
+            Add(systemFactory.Create<ExecuteOrderSystem>());
         }
     }
 }

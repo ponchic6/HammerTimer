@@ -17,6 +17,7 @@ namespace Code.Gameplay.Interacting.Interactors
         [SerializeField] private ForgeInteractor forgeInteractor;
         [SerializeField] private MouldingMachineInteractor mouldingMachineInteractor;
         [SerializeField] private AnvilInteractor anvilInteractor;
+        [SerializeField] private OrderReleaseInteractor orderReleaseInteractor;
         private GameContext _game;
 
         private void Start()
@@ -54,6 +55,8 @@ namespace Code.Gameplay.Interacting.Interactors
                     if (mouldingMachineInteractor.TryReleaseItem(_playerEntityBehavior, targetEntity))
                         return;
                     if (anvilInteractor.TryInteractWithItem(_playerEntityBehavior, targetEntity))
+                        return;
+                    if (orderReleaseInteractor.TryReleaseItem(_playerEntityBehavior, targetEntity))
                         return;
                 }
                 else

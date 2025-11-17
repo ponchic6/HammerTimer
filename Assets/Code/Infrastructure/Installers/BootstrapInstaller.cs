@@ -1,4 +1,5 @@
 ﻿using Code.Gameplay.Interacting.Services;
+using Code.Gameplay.Orders.Services;
 using Code.Infrastructure.Services;
 using Code.Infrastructure.StaticData;
 using Code.Infrastructure.Systems;
@@ -22,10 +23,12 @@ namespace Code.Infrastructure.Installers
             Container.Bind<IEntityViewFactory>().To<EntityViewFactory>().AsSingle();
             Container.Bind<IGrabbableFactory>().To<GrabbableFactory>().AsSingle();
             Container.Bind<ISocketFactory>().To<SocketFactory>().AsSingle();
+            Container.Bind<IOrderFactory>().To<OrderFactory>().AsSingle();
             
             UnityInputService unityInputService = new UnityInputService();
-            Container.Bind<IInputService>().FromInstance(unityInputService);
-            Container.Bind<IReadOnlyInputService>().FromInstance(unityInputService);
+            JoyStickInputService joyStickInputService = new JoyStickInputService();
+            Container.Bind<IInputService>().FromInstance(joyStickInputService);
+            Container.Bind<IReadOnlyInputService>().FromInstance(joyStickInputService);
         }
     }
 }

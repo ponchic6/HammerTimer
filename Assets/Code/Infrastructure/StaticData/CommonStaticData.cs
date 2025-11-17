@@ -29,6 +29,9 @@ namespace Code.Infrastructure.StaticData
         public float itemCoolingRate;
         public float environmentTemperature;
         public float temperatureForMaxForgingQuality;
+        public float orderCreationCooldown;
+        public float orderTimer;
+        public int maxOrdersCount;
 
         public Dictionary<ItemsEnum, GameObject> EnumVisualPairs = new();
 

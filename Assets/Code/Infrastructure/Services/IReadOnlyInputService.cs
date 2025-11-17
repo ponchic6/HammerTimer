@@ -4,7 +4,7 @@ namespace Code.Infrastructure.Services
 {
     public interface IReadOnlyInputService
     {
-        public bool GetKey(KeyCode keyCode);
+        public Vector2 GetMoveDirection();
         public bool GetInteractKeyDown();
         public bool GetInteractKey();
     }

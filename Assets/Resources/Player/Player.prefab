@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 8897882006885523432}
   - component: {fileID: 2075128913705981728}
   - component: {fileID: 1861734329089381288}
+  - component: {fileID: 3158686478251300044}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -227,6 +228,7 @@ MonoBehaviour:
   forgeInteractor: {fileID: 5906782897834762898}
   mouldingMachineInteractor: {fileID: 4810134698582135679}
   anvilInteractor: {fileID: 2075128913705981728}
+  orderReleaseInteractor: {fileID: 3158686478251300044}
 --- !u!114 &6195921911636367993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,6 +397,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!114 &3158686478251300044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 596453535812743816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95c93b6ce03446f388a4633c505d69ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &689687568945369684
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,14 +28,18 @@ namespace Code.Infrastructure.View
 
             foreach (ComponentReference componentRef in _componentsToAdd)
             {
-                int componentIndex = componentRef.componentIndex;
+                int componentIndex = componentRef.GetComponentIndex();
                 if (componentIndex is >= 0 and < GameComponentsLookup.TotalComponents)
                 {
                     IComponent component = entity.CreateComponent(componentIndex, GameComponentsLookup.componentTypes[componentIndex]);
-                    
+
                     ApplyFieldValues(component, componentRef.fieldValues);
 
                     entity.AddComponent(componentIndex, component);
+                }
+                else if (!string.IsNullOrEmpty(componentRef.componentName))
+                {
+                    Debug.LogWarning($"Component '{componentRef.componentName}' not found in GameComponentsLookup!");
                 }
             }
 

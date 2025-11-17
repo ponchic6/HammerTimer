@@ -19,44 +19,44 @@ namespace EntitasExtensionsEditor
         {
             EditorGUI.BeginProperty(position, label, property);
 
-            SerializedProperty componentIndexProp = property.FindPropertyRelative("componentIndex");
-            int currentIndex = componentIndexProp.intValue;
-            int previousIndex = currentIndex;
+            SerializedProperty componentNameProp = property.FindPropertyRelative("componentName");
+            string currentName = componentNameProp.stringValue;
+            string previousName = currentName;
 
-            HashSet<int> usedIndices = GetUsedComponentIndices(property);
+            HashSet<string> usedNames = GetUsedComponentNames(property);
 
-            // Create a sorted list of component indices based on component names
+            // Create a sorted list of component names
             var sortedComponents = Enumerable.Range(0, GameComponentsLookup.TotalComponents)
                 .Select(i => new { Index = i, Name = GameComponentsLookup.componentNames[i] })
                 .OrderBy(c => c.Name)
                 .ToList();
 
             string[] options = new string[GameComponentsLookup.TotalComponents + 1];
-            int[] indexMap = new int[GameComponentsLookup.TotalComponents + 1];
+            string[] nameMap = new string[GameComponentsLookup.TotalComponents + 1];
 
             options[0] = "None";
-            indexMap[0] = -1;
+            nameMap[0] = "";
 
             for (int i = 0; i < sortedComponents.Count; i++)
             {
-                int componentIndex = sortedComponents[i].Index;
-                indexMap[i + 1] = componentIndex;
+                string componentName = sortedComponents[i].Name;
+                nameMap[i + 1] = componentName;
 
-                if (usedIndices.Contains(componentIndex) && componentIndex != currentIndex)
+                if (usedNames.Contains(componentName) && componentName != currentName)
                 {
-                    options[i + 1] = $"{componentIndex}: {sortedComponents[i].Name} (Already added)";
+                    options[i + 1] = $"{componentName} (Already added)";
                 }
                 else
                 {
-                    options[i + 1] = $"{componentIndex}: {sortedComponents[i].Name}";
+                    options[i + 1] = componentName;
                 }
             }
 
-            // Find the dropdown index for the current component index
+            // Find the dropdown index for the current component name
             int selectedDropdownIndex = 0;
-            for (int i = 0; i < indexMap.Length; i++)
+            for (int i = 0; i < nameMap.Length; i++)
             {
-                if (indexMap[i] == currentIndex)
+                if (nameMap[i] == currentName)
                 {
                     selectedDropdownIndex = i;
                     break;
@@ -65,30 +65,30 @@ namespace EntitasExtensionsEditor
 
             Rect dropdownRect = new Rect(position.x, position.y, position.width, FieldHeight);
             int newDropdownIndex = EditorGUI.Popup(dropdownRect, label.text, selectedDropdownIndex, options);
-            int newComponentIndex = indexMap[newDropdownIndex];
+            string newComponentName = nameMap[newDropdownIndex];
 
-            if (newComponentIndex >= 0 && usedIndices.Contains(newComponentIndex) && newComponentIndex != currentIndex)
+            if (!string.IsNullOrEmpty(newComponentName) && usedNames.Contains(newComponentName) && newComponentName != currentName)
             {
                 EditorUtility.DisplayDialog("Duplicate Component",
-                    $"Component '{GameComponentsLookup.componentNames[newComponentIndex]}' is already added to the list!",
+                    $"Component '{newComponentName}' is already added to the list!",
                     "OK");
             }
             else
             {
-                componentIndexProp.intValue = newComponentIndex;
+                componentNameProp.stringValue = newComponentName;
 
                 // If component changed, update field values
-                if (newComponentIndex != previousIndex)
+                if (newComponentName != previousName)
                 {
-                    UpdateFieldValues(property, newComponentIndex);
+                    UpdateFieldValues(property, newComponentName);
                 }
             }
 
             // Draw component fields if a component is selected
-            if (currentIndex >= 0 && currentIndex < GameComponentsLookup.TotalComponents)
+            if (!string.IsNullOrEmpty(currentName))
             {
                 float yOffset = FieldHeight + Spacing;
-                DrawComponentFields(property, currentIndex, position, ref yOffset);
+                DrawComponentFields(property, currentName, position, ref yOffset);
             }
 
             EditorGUI.EndProperty();
@@ -98,10 +98,10 @@ namespace EntitasExtensionsEditor
         {
             float height = FieldHeight; // Dropdown height
 
-            SerializedProperty componentIndexProp = property.FindPropertyRelative("componentIndex");
-            int currentIndex = componentIndexProp.intValue;
+            SerializedProperty componentNameProp = property.FindPropertyRelative("componentName");
+            string currentName = componentNameProp.stringValue;
 
-            if (currentIndex >= 0 && currentIndex < GameComponentsLookup.TotalComponents)
+            if (!string.IsNullOrEmpty(currentName))
             {
                 SerializedProperty fieldValuesProp = property.FindPropertyRelative("fieldValues");
 
@@ -136,8 +136,14 @@ namespace EntitasExtensionsEditor
             return height;
         }
 
-        private void UpdateFieldValues(SerializedProperty property, int componentIndex)
+        private void UpdateFieldValues(SerializedProperty property, string componentName)
         {
+            if (string.IsNullOrEmpty(componentName))
+            {
+                return;
+            }
+
+            int componentIndex = GetComponentIndexByName(componentName);
             if (componentIndex < 0 || componentIndex >= GameComponentsLookup.TotalComponents)
             {
                 return;
@@ -204,14 +210,14 @@ namespace EntitasExtensionsEditor
             }
         }
 
-        private void DrawComponentFields(SerializedProperty property, int componentIndex, Rect position, ref float yOffset)
+        private void DrawComponentFields(SerializedProperty property, string componentName, Rect position, ref float yOffset)
         {
             SerializedProperty fieldValuesProp = property.FindPropertyRelative("fieldValues");
 
             // Check if fieldValues is empty and update if needed
             if (fieldValuesProp.arraySize == 0)
             {
-                UpdateFieldValues(property, componentIndex);
+                UpdateFieldValues(property, componentName);
             }
 
             for (int i = 0; i < fieldValuesProp.arraySize; i++)
@@ -414,9 +420,9 @@ namespace EntitasExtensionsEditor
             }
         }
 
-        private HashSet<int> GetUsedComponentIndices(SerializedProperty currentProperty)
+        private HashSet<string> GetUsedComponentNames(SerializedProperty currentProperty)
         {
-            HashSet<int> usedIndices = new HashSet<int>();
+            HashSet<string> usedNames = new HashSet<string>();
 
             SerializedProperty listProperty = currentProperty.GetParentProperty();
             if (listProperty != null && listProperty.isArray)
@@ -424,15 +430,29 @@ namespace EntitasExtensionsEditor
                 for (int i = 0; i < listProperty.arraySize; i++)
                 {
                     SerializedProperty element = listProperty.GetArrayElementAtIndex(i);
-                    SerializedProperty indexProp = element.FindPropertyRelative("componentIndex");
-                    if (indexProp != null && indexProp.intValue >= 0)
+                    SerializedProperty nameProp = element.FindPropertyRelative("componentName");
+                    if (nameProp != null && !string.IsNullOrEmpty(nameProp.stringValue))
                     {
-                        usedIndices.Add(indexProp.intValue);
+                        usedNames.Add(nameProp.stringValue);
                     }
                 }
             }
 
-            return usedIndices;
+            return usedNames;
+        }
+
+        private int GetComponentIndexByName(string componentName)
+        {
+            if (string.IsNullOrEmpty(componentName))
+                return -1;
+
+            for (int i = 0; i < GameComponentsLookup.componentNames.Length; i++)
+            {
+                if (GameComponentsLookup.componentNames[i] == componentName)
+                    return i;
+            }
+
+            return -1;
         }
     }
 

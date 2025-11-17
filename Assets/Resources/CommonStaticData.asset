@@ -83,3 +83,6 @@ MonoBehaviour:
   itemCoolingRate: 50
   environmentTemperature: 25
   temperatureForMaxForgingQuality: 600
+  orderCreationCooldown: 120
+  orderTimer: 180
+  maxOrdersCount: 4

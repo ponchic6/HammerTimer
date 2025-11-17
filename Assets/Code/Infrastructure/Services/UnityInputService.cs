@@ -15,6 +15,11 @@ namespace Code.Infrastructure.Services
             return Input.GetKey(keyCode);
         }
 
+        public Vector2 GetMoveDirection()
+        {
+            return Vector2.zero;
+        }
+
         public bool GetInteractKeyDown() =>
             Input.GetKeyDown(KeyCode.Space);
 

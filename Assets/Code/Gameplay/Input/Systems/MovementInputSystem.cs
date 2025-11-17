@@ -23,17 +23,7 @@ namespace Code.Gameplay.Input.Systems
         {
             foreach (GameEntity entity in _entities)
             {
-                Vector2 inputDirection = Vector2.zero;
-
-                if (_inputService.GetKey(KeyCode.W))
-                    inputDirection.y += 1f;
-                if (_inputService.GetKey(KeyCode.S))
-                    inputDirection.y -= 1f;
-                if (_inputService.GetKey(KeyCode.A))
-                    inputDirection.x -= 1f;
-                if (_inputService.GetKey(KeyCode.D))
-                    inputDirection.x += 1f;
-
+                Vector2 inputDirection = _inputService.GetMoveDirection();
                 inputDirection = inputDirection.normalized;
                 entity.ReplaceMovementInput(inputDirection);
             }

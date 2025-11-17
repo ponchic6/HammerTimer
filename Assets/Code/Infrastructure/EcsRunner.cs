@@ -24,6 +24,7 @@ namespace Code.Infrastructure
 
         private void Update()
         {
+            Mathf.Sqrt(10000042305);
             _mainFeature.Execute();
             _mainFeature.Cleanup();
         }
