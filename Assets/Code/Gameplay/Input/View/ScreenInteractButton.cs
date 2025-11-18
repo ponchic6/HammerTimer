@@ -9,10 +9,24 @@ namespace Code.Gameplay.Input.View
         [SerializeField] private RectTransform rectTransform;
         [SerializeField] private Button button;
         [SerializeField] private CanvasGroup buttonCanvasGroup;
-        [SerializeField] private Rect touchAreaRect = new Rect(0, 0, 200, 200);
+        [SerializeField] [Range(0f, 1f)] private float touchAreaX;
+        [SerializeField] [Range(0f, 1f)] private float touchAreaY;
+        [SerializeField] [Range(0f, 1f)] private float touchAreaWidth;
+        [SerializeField] [Range(0f, 1f)] private float touchAreaHeight;
         [SerializeField] private bool hideWhenNotPressed = true;
         private bool _isPressed;
         private bool _isOneTimePressed;
+
+        private Rect GetTouchAreaRect()
+        {
+            Vector2 canvasSize = (parentCanvas.transform as RectTransform).sizeDelta;
+            return new Rect(
+                touchAreaX * canvasSize.x,
+                touchAreaY * canvasSize.y,
+                touchAreaWidth * canvasSize.x,
+                touchAreaHeight * canvasSize.y
+            );
+        }
         
         public bool IsPressed => _isPressed;
         public bool IsOneTimePressed => _isOneTimePressed;
@@ -30,27 +44,31 @@ namespace Code.Gameplay.Input.View
         {
             if (_isOneTimePressed)
                 _isOneTimePressed = false;
-            
+
             if (UnityEngine.Input.touchCount > 0)
             {
-                Touch touch = UnityEngine.Input.GetTouch(0);
-                
-                if (touch.phase == TouchPhase.Began)
+                // Check all touches, not just the first one
+                for (int i = 0; i < UnityEngine.Input.touchCount; i++)
                 {
-                    if (IsTouchInArea(touch.position))
+                    Touch touch = UnityEngine.Input.GetTouch(i);
+
+                    if (touch.phase == TouchPhase.Began)
                     {
-                        _isPressed = true;
-                        _isOneTimePressed = true;
-                        ShowButton(touch.position);
-                        button.onClick?.Invoke();
+                        if (IsTouchInArea(touch.position))
+                        {
+                            _isPressed = true;
+                            _isOneTimePressed = true;
+                            ShowButton(touch.position);
+                            button.onClick?.Invoke();
+                        }
                     }
-                }
-                else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
-                {
-                    if (_isPressed)
+                    else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
                     {
-                        _isPressed = false;
-                        HideButton();
+                        if (_isPressed && IsTouchInArea(touch.position))
+                        {
+                            _isPressed = false;
+                            HideButton();
+                        }
                     }
                 }
             }
@@ -77,7 +95,7 @@ namespace Code.Gameplay.Input.View
 
         private bool IsTouchInArea(Vector2 screenPosition)
         {
-            return touchAreaRect.Contains(screenPosition);
+            return GetTouchAreaRect().Contains(screenPosition);
         }
 
         private void ShowButton(Vector2 screenPosition)
@@ -117,6 +135,7 @@ namespace Code.Gameplay.Input.View
             if (parentCanvas == null)
                 return;
 
+            Rect touchAreaRect = GetTouchAreaRect();
             Vector3[] corners = new Vector3[4];
 
             Vector3 bottomLeft = new Vector3(touchAreaRect.x, touchAreaRect.y, 0);
@@ -141,7 +160,7 @@ namespace Code.Gameplay.Input.View
             Vector3 size = new Vector3(touchAreaRect.width, touchAreaRect.height, 0.1f);
             Gizmos.DrawCube(center, size);
 
-            UnityEditor.Handles.Label(center, "Touch Area");
+            UnityEditor.Handles.Label(center, $"Touch Area\n({touchAreaX:F2}, {touchAreaY:F2}) - ({touchAreaWidth:F2} x {touchAreaHeight:F2})");
         }
 #endif
     }

@@ -71,7 +71,35 @@ namespace Terresquall {
 
         [Tooltip("Snaps the joystick to wherever the finger is within a certain boundary.")]
         public bool snapsToTouch = false;
-        public Rect boundaries;
+        [SerializeField] [Range(0f, 1f)] public float boundaryX = 0f;
+        [SerializeField] [Range(0f, 1f)] public float boundaryY = 0f;
+        [SerializeField] [Range(0f, 1f)] public float boundaryWidth = 1f;
+        [SerializeField] [Range(0f, 1f)] public float boundaryHeight = 1f;
+
+        public Rect boundaries {
+            get {
+                if (rootCanvas == null) rootCanvas = GetRootCanvas();
+                if (rootCanvas == null) return new Rect(0, 0, 0, 0);
+
+                Vector2 canvasSize = (rootCanvas.transform as RectTransform).sizeDelta;
+                return new Rect(
+                    boundaryX * canvasSize.x,
+                    boundaryY * canvasSize.y,
+                    boundaryWidth * canvasSize.x,
+                    boundaryHeight * canvasSize.y
+                );
+            }
+            set {
+                if (rootCanvas == null) rootCanvas = GetRootCanvas();
+                if (rootCanvas == null) return;
+
+                Vector2 canvasSize = (rootCanvas.transform as RectTransform).sizeDelta;
+                boundaryX = value.x / canvasSize.x;
+                boundaryY = value.y / canvasSize.y;
+                boundaryWidth = value.width / canvasSize.x;
+                boundaryHeight = value.height / canvasSize.y;
+            }
+        }
 
         // Private variables.
         internal Vector2 desiredPosition, axis, origin, lastAxis;
@@ -92,21 +120,6 @@ namespace Terresquall {
             return null;
         }
 
-        void OnValidate() {
-            RectTransform rectTransform = GetComponent<RectTransform>();
-            if (rectTransform == null) return;
-
-            // Only assign a default if boundaries haven't been customized yet
-            if (snapsToTouch && boundaries.width == 0 && boundaries.height == 0) {
-                // Get the width and height from the RectTransform
-                boundaries.width = rectTransform.rect.width + 250;
-                boundaries.height = rectTransform.rect.height + 250;
-
-                // Center the boundaries around the joystick position
-                boundaries.x = transform.position.x - (boundaries.width / 2f);
-                boundaries.y = transform.position.y - (boundaries.height / 2f);
-            }
-        }
 
         // Get an existing instance of a joystick.
         public static VirtualJoystick GetInstance(int id = 0) {
@@ -392,7 +405,7 @@ namespace Terresquall {
         public Rect GetBounds()
         {
             if (!snapsToTouch) return new Rect(0, 0, 0, 0);
-            return new Rect(boundaries.x, boundaries.y, boundaries.width, boundaries.height);
+            return boundaries;
         }
 
         void OnEnable() {
@@ -755,5 +768,45 @@ namespace Terresquall {
             // Default to the old input system.
             return Input.touchCount;
         }
+
+#if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            if (!snapsToTouch) return;
+
+            if (rootCanvas == null)
+                rootCanvas = GetRootCanvas();
+
+            if (rootCanvas == null)
+                return;
+
+            Rect boundaryRect = GetBounds();
+            Vector3[] corners = new Vector3[4];
+
+            Vector3 bottomLeft = new Vector3(boundaryRect.x, boundaryRect.y, 0);
+            Vector3 topRight = new Vector3(boundaryRect.x + boundaryRect.width, boundaryRect.y + boundaryRect.height, 0);
+
+            corners[0] = bottomLeft; // Нижний левый
+            corners[1] = new Vector3(topRight.x, bottomLeft.y, 0); // Нижний правый
+            corners[2] = topRight; // Верхний правый
+            corners[3] = new Vector3(bottomLeft.x, topRight.y, 0); // Верхний левый
+
+            Gizmos.color = Color.green;
+            for (int i = 0; i < 4; i++)
+            {
+                Gizmos.DrawLine(corners[i], corners[(i + 1) % 4]);
+            }
+
+            Color fillColor = Color.green;
+            fillColor.a = 0.1f;
+            Gizmos.color = fillColor;
+
+            Vector3 center = (bottomLeft + topRight) / 2;
+            Vector3 size = new Vector3(boundaryRect.width, boundaryRect.height, 0.1f);
+            Gizmos.DrawCube(center, size);
+
+            UnityEditor.Handles.Label(center, $"Joystick Boundary\n({boundaryX:F2}, {boundaryY:F2}) - ({boundaryWidth:F2} x {boundaryHeight:F2})");
+        }
+#endif
     }
 }

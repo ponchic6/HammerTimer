@@ -798,12 +798,10 @@ MonoBehaviour:
   rectTransform: {fileID: 146383785}
   button: {fileID: 146383786}
   buttonCanvasGroup: {fileID: 146383789}
-  touchAreaRect:
-    serializedVersion: 2
-    x: 1083.3
-    y: -174.1
-    width: 1612
-    height: 1502.2
+  touchAreaX: 0.6
+  touchAreaY: 0
+  touchAreaWidth: 0.4
+  touchAreaHeight: 1
   hideWhenNotPressed: 1
 --- !u!1001 &160243412
 PrefabInstance:
@@ -1156,6 +1154,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 2908a14abd69978489a29fa6ec0d4567, type: 3}
+    - target: {fileID: 8834734169634807594, guid: 5c2cb823f1af59541974bd4a360355f6, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8834734170784175512, guid: 5c2cb823f1af59541974bd4a360355f6, type: 3}
       propertyPath: m_Name
       value: Native Joystick (White)
@@ -1249,6 +1251,14 @@ PrefabInstance:
       value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 8834734170784175514, guid: 5c2cb823f1af59541974bd4a360355f6, type: 3}
+      propertyPath: boundaryX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8834734170784175514, guid: 5c2cb823f1af59541974bd4a360355f6, type: 3}
+      propertyPath: boundaryY
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8834734170784175514, guid: 5c2cb823f1af59541974bd4a360355f6, type: 3}
       propertyPath: boundaries.x
       value: 0
       objectReference: {fileID: 0}
@@ -1258,6 +1268,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8834734170784175514, guid: 5c2cb823f1af59541974bd4a360355f6, type: 3}
       propertyPath: snapsToTouch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8834734170784175514, guid: 5c2cb823f1af59541974bd4a360355f6, type: 3}
+      propertyPath: boundaryWidth
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8834734170784175514, guid: 5c2cb823f1af59541974bd4a360355f6, type: 3}
+      propertyPath: boundaryHeight
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8834734170784175514, guid: 5c2cb823f1af59541974bd4a360355f6, type: 3}
