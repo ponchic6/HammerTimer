@@ -1,19 +1,17 @@
-﻿using Code.Gameplay.Orders.Services;
+﻿using System.Collections.Generic;
 using Entitas;
 
 namespace Code.Gameplay.Orders.Systems
 {
     public class ExecuteOrderSystem : IExecuteSystem
     {
-        private readonly IOrderFactory _orderFactory;
         private readonly GameContext _game;
         private readonly IGroup<GameEntity> _releasedItems;
         private readonly IGroup<GameEntity> _orders;
+        private List<GameEntity> _buffer = new(8);
 
-        public ExecuteOrderSystem(IOrderFactory orderFactory)
+        public ExecuteOrderSystem()
         {
-            _orderFactory = orderFactory;
-            
             _game = Contexts.sharedInstance.game;
             _releasedItems = _game.GetGroup(GameMatcher.AllOf(GameMatcher.GrabbableItem, GameMatcher.ReleasedAsOrder));
             _orders = _game.GetGroup(GameMatcher.Order);
@@ -21,12 +19,12 @@ namespace Code.Gameplay.Orders.Systems
 
         public void Execute()
         {
-            foreach (GameEntity entity in _releasedItems)
+            foreach (GameEntity entity in _releasedItems.GetEntities(_buffer))
             {
                 if (!DoesExistCorrespondingOrder(entity, out GameEntity order))
-                    return;
+                    continue;
              
-                order.isDestructed = true;
+                order.AddSelfDestructTimer(1f);
                 _game.playerEntity.RemoveGrabbedItem();
                 entity.isDestructed = true;
             }
@@ -44,6 +42,7 @@ namespace Code.Gameplay.Orders.Systems
             }
             
             order = null;
+            item.isReleasedAsOrder = false;
             return false;
         }
     }

@@ -28,14 +28,21 @@ namespace Code.Gameplay.Orders.Systems
             foreach (GameEntity entity in _entities)
             {
                 entity.orderCreationCooldown.Timer -= Time.deltaTime;
-                
-                if (entity.orderCreationCooldown.Timer > 0)
+
+                if (entity.orderCreationCooldown.Timer <= 0)
+                {
+                    entity.orderCreationCooldown.Timer = _commonStaticData.orderCreationCooldown;
+
+                    if (_orders.count < _commonStaticData.maxOrdersCount)
+                        _orderFactory.CreateRandomOrder();
+                    
                     continue;
+                }
 
-                entity.orderCreationCooldown.Timer = _commonStaticData.orderCreationCooldown;
-
-                if (_orders.count < _commonStaticData.maxOrdersCount)
+                if (_orders.count == 0)
+                {
                     _orderFactory.CreateRandomOrder();
+                }
             }
         }
     }

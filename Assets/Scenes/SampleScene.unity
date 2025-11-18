@@ -1400,7 +1400,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5131091, y: -0, z: -0, w: 0.85832345}
-  m_LocalPosition: {x: -1.26, y: 7.02, z: -6.64}
+  m_LocalPosition: {x: -1.26, y: 7.22, z: -6.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1462,8 +1462,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7d975a6954d06a459690ee4cf0197bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swaySpeed: 0.5
-  positionSwayAmplitude: 0.25
+  swaySpeed: 0.35
+  positionSwayAmplitude: 0.2
 --- !u!1001 &401607054
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3653,6 +3653,8 @@ MonoBehaviour:
   slideInDuration: 0.5
   shiftDuration: 0.3
   slideInOffset: 350
+  slideOutDuration: 0.5
+  slideOutOffset: 350
   horizontalOffset: 225
   verticalOffset: -75
 --- !u!114 &997724017

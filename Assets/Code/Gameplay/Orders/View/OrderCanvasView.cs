@@ -15,6 +15,8 @@ namespace Code.Gameplay.Orders.View
         [SerializeField] private float slideInDuration;
         [SerializeField] private float shiftDuration;
         [SerializeField] private float slideInOffset;
+        [SerializeField] private float slideOutDuration;
+        [SerializeField] private float slideOutOffset;
         [SerializeField] private float horizontalOffset;
         [SerializeField] private float verticalOffset;
 
@@ -99,17 +101,28 @@ namespace Code.Gameplay.Orders.View
 
         private void OnDestructedAdded(IEntity entity, int index, IComponent component)
         {
-            if (index != GameComponentsLookup.Destructed)
+            if (index != GameComponentsLookup.SelfDestructTimer)
                 return;
 
             entity.OnComponentAdded -= OnDestructedAdded;
 
             GameEntity gameEntity = (GameEntity)entity;
-            
+
             if (_orderViews.TryGetValue(gameEntity.id.Value, out OrderView orderView))
             {
-                Destroy(orderView.gameObject);
                 _orderViews.Remove(gameEntity.id.Value);
+
+                // Анимация уезжания вверх за пределы экрана
+                RectTransform rectTransform = orderView.GetComponent<RectTransform>();
+                Vector2 slideOutPosition = new Vector2(rectTransform.anchoredPosition.x, verticalOffset + slideOutOffset);
+
+                rectTransform.DOAnchorPos(slideOutPosition, slideOutDuration)
+                    .SetEase(Ease.InBack)
+                    .OnComplete(() =>
+                    {
+                        if (orderView != null)
+                            Destroy(orderView.gameObject);
+                    });
             }
         }
     }
