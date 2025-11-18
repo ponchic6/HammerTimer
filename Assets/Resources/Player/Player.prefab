@@ -325,7 +325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3afc45a0760b2b64eaaf54d130e8928c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactionRadius: 0.5
+  _interactionRadius: 1
   _socketLayer:
     serializedVersion: 2
     m_Bits: 128

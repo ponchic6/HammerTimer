@@ -6,7 +6,6 @@ namespace Code.Gameplay.Common.View
     {
         [SerializeField] private bool maintainConstantSize = true;
         [SerializeField] private float fixedSize;
-
         private Camera _mainCamera;
 
         private void Start()

@@ -18,6 +18,8 @@ namespace Code.Gameplay.Interacting.Interactors
         [SerializeField] private MouldingMachineInteractor mouldingMachineInteractor;
         [SerializeField] private AnvilInteractor anvilInteractor;
         [SerializeField] private OrderReleaseInteractor orderReleaseInteractor;
+        private Collider[] _socketResults = new Collider[8];
+        private Collider[] _grabbableResults = new Collider[8];
         private GameContext _game;
 
         private void Start()
@@ -38,12 +40,10 @@ namespace Code.Gameplay.Interacting.Interactors
         {
             if (_playerEntityBehavior.Entity.hasGrabbedItem)
             {
-                RaycastHit hit;
-                
-                if (Physics.Raycast(transform.position + transform.up * 0.5f, transform.forward, out hit, _interactionDistance, _socketLayer))
-                {
-                    GameEntity targetEntity = hit.collider.GetComponentInParent<EntityBehaviour>().Entity;
+                GameEntity targetEntity = FindClosestSocketEntity();
 
+                if (targetEntity != null)
+                {
                     if (shelfSocketInteractor.TryReleaseItem(_playerEntityBehavior, targetEntity))
                         return;
                     if (produceMachineInteractor.TryReleaseItem(_playerEntityBehavior, targetEntity))
@@ -66,19 +66,16 @@ namespace Code.Gameplay.Interacting.Interactors
             }
             else
             {
-                RaycastHit hit;
-                if (Physics.Raycast(transform.position + transform.up * 0.5f, transform.forward, out hit, _interactionDistance, _grabbableLayer))
+                GameEntity grabbableEntity = FindClosestGrabbableEntity();
+                if (grabbableEntity != null)
                 {
-                    GameEntity targetEntity = hit.collider.GetComponentInParent<EntityBehaviour>().Entity;
-
-                    if (freeItemInteractor.TryGrabItem(_playerEntityBehavior, targetEntity))
+                    if (freeItemInteractor.TryGrabItem(_playerEntityBehavior, grabbableEntity))
                         return;
                 }
 
-                if (Physics.Raycast(transform.position + transform.up * 0.5f, transform.forward, out hit, _interactionDistance, _socketLayer))
+                GameEntity socketEntity = FindClosestSocketEntity();
+                if (socketEntity != null)
                 {
-                    GameEntity socketEntity = hit.collider.GetComponentInParent<EntityBehaviour>().Entity;
-
                     if (shelfSocketInteractor.TryGrabItem(_playerEntityBehavior, socketEntity))
                         return;
                     if (infinityBoxInteractor.TryGrabItem(_playerEntityBehavior, socketEntity))
@@ -99,12 +96,73 @@ namespace Code.Gameplay.Interacting.Interactors
 
         private void ProcessDoubleItemInteractions()
         {
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward, out hit, _interactionDistance, _socketLayer))
+            GameEntity socketEntity = FindClosestSocketEntity();
+            if (socketEntity != null)
             {
-                GameEntity socketEntity = hit.collider.GetComponent<EntityBehaviour>().Entity;
                 workbenchInteractor.TryClearWorkbench(socketEntity);
             }
+        }
+
+        private GameEntity FindClosestSocketEntity()
+        {
+            int size = Physics.OverlapSphereNonAlloc(transform.position, _interactionDistance, _socketResults, _socketLayer);
+
+            if (size == 0)
+                return null;
+
+            GameEntity closestEntity = null;
+            float closestDistance = float.MaxValue;
+
+            for (int i = 0; i < size; i++)
+            {
+                Collider collider = _socketResults[i];
+                if (collider == null)
+                    continue;
+
+                EntityBehaviour entityBehaviour = collider.GetComponentInParent<EntityBehaviour>();
+                if (entityBehaviour != null)
+                {
+                    float distance = Vector3.Distance(transform.position, collider.transform.position);
+                    if (distance < closestDistance)
+                    {
+                        closestDistance = distance;
+                        closestEntity = entityBehaviour.Entity;
+                    }
+                }
+            }
+
+            return closestEntity;
+        }
+
+        private GameEntity FindClosestGrabbableEntity()
+        {
+            int size = Physics.OverlapSphereNonAlloc(transform.position, _interactionDistance, _grabbableResults, _grabbableLayer);
+
+            if (size == 0)
+                return null;
+
+            GameEntity closestEntity = null;
+            float closestDistance = float.MaxValue;
+
+            for (int i = 0; i < size; i++)
+            {
+                Collider collider = _grabbableResults[i];
+                if (collider == null)
+                    continue;
+
+                EntityBehaviour entityBehaviour = collider.GetComponentInParent<EntityBehaviour>();
+                if (entityBehaviour != null)
+                {
+                    float distance = Vector3.Distance(transform.position, collider.transform.position);
+                    if (distance < closestDistance)
+                    {
+                        closestDistance = distance;
+                        closestEntity = entityBehaviour.Entity;
+                    }
+                }
+            }
+
+            return closestEntity;
         }
     }
 }

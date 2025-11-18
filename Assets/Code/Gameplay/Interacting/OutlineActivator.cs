@@ -7,14 +7,14 @@ namespace Code.Gameplay.Interacting
     {
         [SerializeField] private float _interactionDistance;
         [SerializeField] private LayerMask _socketLayer;
+        private Collider[] _results = new Collider[4];
         private SocketOutline _lastSocketOutline;
 
         private void Update()
         {
-            RaycastHit hit;
-            bool rayHit = Physics.Raycast(transform.position + transform.up * 0.5f, transform.forward, out hit, _interactionDistance, _socketLayer);
+            int size = Physics.OverlapSphereNonAlloc(transform.position, _interactionDistance, _results, _socketLayer);
 
-            if (!rayHit)
+            if (size == 0)
             {
                 if (_lastSocketOutline != null)
                 {
@@ -24,18 +24,44 @@ namespace Code.Gameplay.Interacting
                 return;
             }
 
-            if (hit.collider.TryGetComponent(out SocketOutline socketOutline))
+            SocketOutline closestSocketOutline = null;
+            float closestDistance = float.MaxValue;
+
+            foreach (Collider collider1 in _results)
             {
-                if (_lastSocketOutline == socketOutline)
-                    return;
-
-                socketOutline.EnableOutline();
-
-                if (_lastSocketOutline != null)
-                    _lastSocketOutline.DisableOutline();
-
-                _lastSocketOutline = socketOutline;
+                if (collider1 == null)
+                    continue;
+                
+                if (collider1.TryGetComponent(out SocketOutline socketOutline))
+                {
+                    float distance = Vector3.Distance(transform.position, collider1.transform.position);
+                    if (distance < closestDistance)
+                    {
+                        closestDistance = distance;
+                        closestSocketOutline = socketOutline;
+                    }
+                }
             }
+
+            if (closestSocketOutline == null)
+            {
+                if (_lastSocketOutline != null)
+                {
+                    _lastSocketOutline.DisableOutline();
+                    _lastSocketOutline = null;
+                }
+                return;
+            }
+
+            if (_lastSocketOutline == closestSocketOutline)
+                return;
+
+            closestSocketOutline.EnableOutline();
+
+            if (_lastSocketOutline != null)
+                _lastSocketOutline.DisableOutline();
+
+            _lastSocketOutline = closestSocketOutline;
         }
     }
 }

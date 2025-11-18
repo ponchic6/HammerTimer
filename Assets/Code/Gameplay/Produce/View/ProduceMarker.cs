@@ -8,6 +8,7 @@ namespace Code.Gameplay.Produce.View
     {
         [SerializeField] private float _interactionRadius = 0.5f;
         [SerializeField] private LayerMask _socketLayer;
+        private Collider[] _results = new Collider[4];
         private GameContext _game;
 
         [Inject]
@@ -19,7 +20,6 @@ namespace Code.Gameplay.Produce.View
         private void Update()
         {
             bool isHoldingInteract = _game.inputEntity.isHoldingInteractInput;
-            bool isInteractPressed = _game.inputEntity.isInteractDownInput;
 
             if (!_game.isProducingByPlayer && isHoldingInteract)
             {
@@ -69,14 +69,33 @@ namespace Code.Gameplay.Produce.View
 
         private GameEntity FindSocketEntity()
         {
-            RaycastHit hit;
+            int size = Physics.OverlapSphereNonAlloc(transform.position, _interactionRadius, _results, _socketLayer);
 
-            if (Physics.Raycast(transform.position + transform.up * 0.5f, transform.forward, out hit, 1f, _socketLayer))
+            if (size == 0)
+                return null;
+
+            GameEntity closestEntity = null;
+            float closestDistance = float.MaxValue;
+
+            for (int i = 0; i < size; i++)
             {
-                return hit.collider.GetComponent<EntityBehaviour>().Entity;
+                Collider collider = _results[i];
+                if (collider == null)
+                    continue;
+
+                EntityBehaviour entityBehaviour = collider.GetComponent<EntityBehaviour>();
+                if (entityBehaviour != null)
+                {
+                    float distance = Vector3.Distance(transform.position, collider.transform.position);
+                    if (distance < closestDistance)
+                    {
+                        closestDistance = distance;
+                        closestEntity = entityBehaviour.Entity;
+                    }
+                }
             }
-            
-            return null;
+
+            return closestEntity;
         }
 
         private bool IsProduceMachine(GameEntity entity)
