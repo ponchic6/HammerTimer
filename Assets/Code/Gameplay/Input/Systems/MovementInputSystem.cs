@@ -6,11 +6,11 @@ namespace Code.Gameplay.Input.Systems
 {
     public class MovementInputSystem : IExecuteSystem
     {
-        private readonly IReadOnlyInputService _inputService;
+        private readonly IInputService _inputService;
         private readonly GameContext _game;
         private readonly IGroup<GameEntity> _entities;
 
-        public MovementInputSystem(IReadOnlyInputService inputService)
+        public MovementInputSystem(IInputService inputService)
         {
             _inputService = inputService;
             

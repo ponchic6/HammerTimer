@@ -8,8 +8,6 @@ namespace Code.Gameplay.Produce.View
     {
         [SerializeField] private float _interactionRadius = 0.5f;
         [SerializeField] private LayerMask _socketLayer;
-
-        private readonly Collider[] _overlapResults = new Collider[4];
         private GameContext _game;
 
         [Inject]
@@ -23,7 +21,7 @@ namespace Code.Gameplay.Produce.View
             bool isHoldingInteract = _game.inputEntity.isHoldingInteractInput;
             bool isInteractPressed = _game.inputEntity.isInteractDownInput;
 
-            if (isInteractPressed && !_game.isProducingByPlayer && isHoldingInteract)
+            if (!_game.isProducingByPlayer && isHoldingInteract)
             {
                 TryStartProduction();
                 return;
@@ -71,19 +69,14 @@ namespace Code.Gameplay.Produce.View
 
         private GameEntity FindSocketEntity()
         {
-            Vector3 searchPosition = transform.position + transform.forward;
-            int socketCount = Physics.OverlapSphereNonAlloc(
-                searchPosition,
-                _interactionRadius,
-                _overlapResults,
-                _socketLayer
-            );
+            RaycastHit hit;
 
-            if (socketCount == 0)
-                return null;
-
-            EntityBehaviour entityBehaviour = _overlapResults[0].GetComponent<EntityBehaviour>();
-            return entityBehaviour?.Entity;
+            if (Physics.Raycast(transform.position + transform.up * 0.5f, transform.forward, out hit, 1f, _socketLayer))
+            {
+                return hit.collider.GetComponent<EntityBehaviour>().Entity;
+            }
+            
+            return null;
         }
 
         private bool IsProduceMachine(GameEntity entity)

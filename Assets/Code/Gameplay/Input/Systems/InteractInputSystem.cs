@@ -6,13 +6,13 @@ namespace Code.Gameplay.Input.Systems
 {
     public class InteractInputSystem : IExecuteSystem
     {
-        private readonly IReadOnlyInputService _inputService;
+        private readonly IInputService _inputService;
         private readonly GameContext _game;
         private readonly IGroup<GameEntity> _inputEntities;
         private readonly IGroup<GameEntity> _singleInteractEntities;
         private List<GameEntity> _buffer = new(4);
 
-        public InteractInputSystem(IReadOnlyInputService inputService)
+        public InteractInputSystem(IInputService inputService)
         {
             _inputService = inputService;
             _game = Contexts.sharedInstance.game;

@@ -79,10 +79,6 @@ namespace Terresquall {
         internal Color originalJoystickColor; // Stores the original color of the joystick base.
         [HideInInspector] public int currentPointerId = -2;
 
-        // Interaction tracking
-        private bool interactionTriggered = false;
-        private bool everLeftDeadzone = false;
-
         internal static readonly Dictionary<int, VirtualJoystick> instances = new Dictionary<int, VirtualJoystick>();
 
         public const string VERSION = "1.1.7";
@@ -223,29 +219,6 @@ namespace Terresquall {
             return GetInstance(id).GetAxisRaw();
         }
 
-        // Get interaction button state (tap in deadzone)
-        public bool GetInteraction() {
-            return interactionTriggered;
-        }
-
-        public static bool GetInteraction(int id = 0) {
-            if (instances.Count <= 0) {
-                Debug.LogWarning("No instances of joysticks found on the Scene.");
-                return false;
-            }
-            return GetInstance(id).GetInteraction();
-        }
-
-        // Reset interaction flag (call this after consuming the interaction)
-        public void ResetInteraction() {
-            interactionTriggered = false;
-        }
-
-        public static void ResetInteraction(int id = 0) {
-            if (instances.Count <= 0) return;
-            GetInstance(id).ResetInteraction();
-        }
-
         public float GetRadius() {
             RectTransform t = transform as RectTransform;
 
@@ -269,67 +242,24 @@ namespace Terresquall {
         // What happens when we press down on the element.
         public void OnPointerDown(PointerEventData data) {
             currentPointerId = data.pointerId;
+            SetPosition(data.position);
 
-            // Reset interaction tracking
-            everLeftDeadzone = false;
-            interactionTriggered = false;
-
-            // If visibleOnlyOnTouch is enabled, move joystick to touch position
+            // Show joystick when touched if visibleOnlyOnTouch is enabled
             if (visibleOnlyOnTouch) {
-                Vector2 position;
-
-                // Convert screen position to canvas position
-                if (rootCanvas.renderMode == RenderMode.ScreenSpaceOverlay) {
-                    position = data.position;
-                } else {
-                    Vector3 worldPoint;
-                    if (RectTransformUtility.ScreenPointToWorldPointInRectangle(
-                        rootCanvas.transform as RectTransform,
-                        data.position,
-                        rootCanvas.worldCamera,
-                        out worldPoint
-                    )) {
-                        position = worldPoint;
-                    } else {
-                        position = data.position;
-                    }
-                }
-
-                // Move joystick to touch position
-                transform.position = position;
-
-                // Reset control stick to center of joystick
-                desiredPosition = transform.position;
-                controlStick.transform.position = transform.position;
-                axis = Vector2.zero;
-
                 SetJoystickVisibility(true);
             } else {
-                SetPosition(data.position);
                 controlStick.color = dragColor;
             }
         }
 
         // What happens when we stop pressing down on the element.
         public void OnPointerUp(PointerEventData data) {
-            // Check if we should trigger interaction (tap in deadzone without ever leaving it)
-            bool inDeadzone = axis.magnitude < deadzone;
-            if (inDeadzone && !everLeftDeadzone && currentPointerId > -2) {
-                interactionTriggered = true;
-            }
-
             desiredPosition = transform.position;
             currentPointerId = -2;
 
             // Hide joystick when released if visibleOnlyOnTouch is enabled
             if (visibleOnlyOnTouch) {
                 SetJoystickVisibility(false);
-
-                // Return joystick to original position
-                transform.position = origin;
-                desiredPosition = origin;
-                controlStick.transform.position = origin;
-                axis = Vector2.zero;
             } else {
                 controlStick.color = originalColor;
             }
@@ -538,14 +468,7 @@ namespace Terresquall {
 
             // If the joystick is moved less than the dead zone amount, it won't register.
             axis = (controlStick.transform.position - transform.position) / GetRadius();
-            bool inDeadzone = axis.magnitude < deadzone;
-
-            // Track if we ever left the deadzone during this drag
-            if (currentPointerId > -2 && !inDeadzone) {
-                everLeftDeadzone = true;
-            }
-
-            if (inDeadzone)
+            if (axis.magnitude < deadzone)
                 axis = Vector2.zero;
 
             // If a joystick is toggled and we are debugging, output to console.

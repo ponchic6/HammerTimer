@@ -2,9 +2,10 @@
 
 namespace Code.Infrastructure.Services
 {
-    public interface IInputService : IReadOnlyInputService
+    public interface IInputService
     {
-        public void HoldKey(KeyCode keyCode);
-        public void ReleaseKey(KeyCode keyCode);
+        public Vector2 GetMoveDirection();
+        public bool GetInteractKeyDown();
+        public bool GetInteractKey();
     }
 }

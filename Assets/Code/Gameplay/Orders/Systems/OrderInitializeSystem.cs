@@ -1,5 +1,4 @@
 ﻿using Code.Infrastructure.Services;
-using Code.Infrastructure.StaticData;
 using Entitas;
 
 namespace Code.Gameplay.Orders.Systems
@@ -7,13 +6,11 @@ namespace Code.Gameplay.Orders.Systems
     public class OrderInitializeSystem : IInitializeSystem
     {
         private readonly IIdentifierService _identifierService;
-        private readonly CommonStaticData _commonStaticData;
         private readonly GameContext _game;
 
-        public OrderInitializeSystem(IIdentifierService identifierService, CommonStaticData commonStaticData)
+        public OrderInitializeSystem(IIdentifierService identifierService)
         {
             _identifierService = identifierService;
-            _commonStaticData = commonStaticData;
             _game = Contexts.sharedInstance.game;
         }
         
@@ -21,7 +18,7 @@ namespace Code.Gameplay.Orders.Systems
         {
             GameEntity orderCooldown = _game.CreateEntity();
             orderCooldown.AddId(_identifierService.Next());
-            orderCooldown.AddOrderCreationCooldown(_commonStaticData.orderCreationCooldown);
+            orderCooldown.AddOrderCreationCooldown(0f);
         }
     }
 }

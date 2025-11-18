@@ -73,7 +73,7 @@ MonoBehaviour:
   workbenchRecipes:
   - {fileID: 11400000, guid: fc672c2dd059c4d48a858a16ef44a7b1, type: 2}
   - {fileID: 11400000, guid: d466608d73a89384b9589c0114456358, type: 2}
-  maxPlayerSpeed: 5
+  maxPlayerSpeed: 3
   acceleration: 25
   forgePowerDecreaseBase: 0.1
   oneCoalPower: 1000
@@ -86,3 +86,4 @@ MonoBehaviour:
   orderCreationCooldown: 120
   orderTimer: 180
   maxOrdersCount: 4
+  minForgePowerDecrease: 1

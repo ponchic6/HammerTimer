@@ -42,7 +42,7 @@ namespace Code.Gameplay.Player.Systems
                 {
                     Vector3 lookDirection = new Vector3(direction.x, 0, direction.y);
                     Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
-                    player.transform.Value.rotation = Quaternion.Slerp(player.transform.Value.rotation, targetRotation, 20f * Time.deltaTime);
+                    player.transform.Value.rotation = Quaternion.Slerp(player.transform.Value.rotation, targetRotation, 200f * Time.deltaTime);
                 }
             }
         }

@@ -22,7 +22,9 @@ namespace Code.Gameplay.Produce.Forge
         {
             foreach (GameEntity entity in _entities)
             {
-                float totalDecrease = entity.forge.Power * _commonStaticData.forgePowerDecreaseBase * Time.deltaTime;
+                float totalDecrease =
+                    Mathf.Max(entity.forge.Power * _commonStaticData.forgePowerDecreaseBase * Time.deltaTime,
+                        _commonStaticData.minForgePowerDecrease);
 
                 entity.forge.Power = Mathf.Max(0f, entity.forge.Power - totalDecrease);
             }

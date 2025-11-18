@@ -25,10 +25,8 @@ namespace Code.Infrastructure.Installers
             Container.Bind<ISocketFactory>().To<SocketFactory>().AsSingle();
             Container.Bind<IOrderFactory>().To<OrderFactory>().AsSingle();
             
-            UnityInputService unityInputService = new UnityInputService();
             JoyStickInputService joyStickInputService = new JoyStickInputService();
             Container.Bind<IInputService>().FromInstance(joyStickInputService);
-            Container.Bind<IReadOnlyInputService>().FromInstance(joyStickInputService);
         }
     }
 }

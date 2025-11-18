@@ -1,36 +1,30 @@
-﻿using Terresquall;
+﻿using Code.Gameplay.Input.View;
+using Terresquall;
 using UnityEngine;
 
 namespace Code.Infrastructure.Services
 {
     public class JoyStickInputService : IInputService
     {
+        private ScreenInteractButton _screenInteractButton;
+
         public Vector2 GetMoveDirection() =>
             VirtualJoystick.GetAxis();
 
         public bool GetInteractKeyDown()
         {
-            bool interaction = VirtualJoystick.GetInteraction();
-            if (interaction)
-            {
-                VirtualJoystick.ResetInteraction();
-                return true;
-            }
+            if (_screenInteractButton == null) 
+                _screenInteractButton = Object.FindFirstObjectByType<ScreenInteractButton>();
 
-            return Input.GetKeyDown(KeyCode.Space);
+            return _screenInteractButton.IsOneTimePressed;
         }
 
         public bool GetInteractKey()
         {
-            return Input.GetKeyDown(KeyCode.Space);
-        }
+            if (_screenInteractButton == null) 
+                _screenInteractButton = Object.FindFirstObjectByType<ScreenInteractButton>();
 
-        public void HoldKey(KeyCode keyCode)
-        {
-        }
-
-        public void ReleaseKey(KeyCode keyCode)
-        {
+            return _screenInteractButton.IsPressed;
         }
     }
 }

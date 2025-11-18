@@ -32,6 +32,7 @@ namespace Code.Infrastructure.StaticData
         public float orderCreationCooldown;
         public float orderTimer;
         public int maxOrdersCount;
+        public float minForgePowerDecrease;
 
         public Dictionary<ItemsEnum, GameObject> EnumVisualPairs = new();
 
