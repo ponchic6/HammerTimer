@@ -428,11 +428,16 @@ namespace Terresquall {
 
             origin = desiredPosition = transform.position;
             StartCoroutine(Activate());
-            originalColor = controlStick.color;
+
+            // Store the original colors only if they haven't been set yet (first initialization)
+            // or if visibleOnlyOnTouch is disabled (so we know the colors are valid)
+            if (originalColor.a == 0f || !visibleOnlyOnTouch) {
+                originalColor = controlStick.color;
+            }
 
             // Store the original joystick base color
             Image joystickImage = GetComponent<Image>();
-            if (joystickImage != null) {
+            if (joystickImage != null && (originalJoystickColor.a == 0f || !visibleOnlyOnTouch)) {
                 originalJoystickColor = joystickImage.color;
             }
 
