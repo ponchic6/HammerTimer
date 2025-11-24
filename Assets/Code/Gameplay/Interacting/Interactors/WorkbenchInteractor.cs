@@ -1,4 +1,5 @@
-﻿using Code.Infrastructure.View;
+﻿using Code.Infrastructure.StaticData;
+using Code.Infrastructure.View;
 using Code.Infrastructure.View.Extensions;
 using UnityEngine;
 using Zenject;
@@ -8,11 +9,13 @@ namespace Code.Gameplay.Interacting.Interactors
     public class WorkbenchInteractor : MonoBehaviour
     {
         private GameContext _game;
+        private CommonStaticData _commonStaticData;
 
         [Inject]
-        public void Construct()
+        public void Construct(CommonStaticData commonStaticData)
         {
-            _game = Contexts.sharedInstance.game;       
+            _commonStaticData = commonStaticData;
+            _game = Contexts.sharedInstance.game;
         }
 
         public bool TryGrabItem(EntityBehaviour playerEntityBehavior, GameEntity socketEntity)
@@ -29,7 +32,7 @@ namespace Code.Gameplay.Interacting.Interactors
 
         public bool TryReleaseItem(EntityBehaviour playerEntityBehavior, GameEntity socketEntity)
         {
-            if (!socketEntity.hasWorkbench || socketEntity.hasGrabbedItem)
+            if (!socketEntity.hasWorkbench || socketEntity.hasGrabbedItem || socketEntity.workbench.Value.Count >= _commonStaticData.workbenchCapacity)
                 return false;
 
             int grabbableId = playerEntityBehavior.Entity.grabbedItem.Value;
@@ -49,7 +52,7 @@ namespace Code.Gameplay.Interacting.Interactors
 
             foreach (int grabbableId in socketEntity.workbench.Value)
             {
-                Vector3 spawnPosition = workbenchPosition + transform.right * Random.Range(-1f, 1f) + transform.forward * 1.5f;
+                Vector3 spawnPosition = workbenchPosition + transform.forward * Random.Range(-1f, 1f) + transform.right * 1.5f;
                 GameEntity grabbableEntity = _game.GetEntityWithId(grabbableId);
                 grabbableEntity.AddInitialTransform(spawnPosition, Quaternion.identity);
                 grabbableEntity.EnableView();

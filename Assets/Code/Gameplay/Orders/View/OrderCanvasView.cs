@@ -108,11 +108,8 @@ namespace Code.Gameplay.Orders.View
 
             GameEntity gameEntity = (GameEntity)entity;
 
-            if (_orderViews.TryGetValue(gameEntity.id.Value, out OrderView orderView))
+            if (_orderViews.Remove(gameEntity.id.Value, out OrderView orderView))
             {
-                _orderViews.Remove(gameEntity.id.Value);
-
-                // Анимация уезжания вверх за пределы экрана
                 RectTransform rectTransform = orderView.GetComponent<RectTransform>();
                 Vector2 slideOutPosition = new Vector2(rectTransform.anchoredPosition.x, verticalOffset + slideOutOffset);
 

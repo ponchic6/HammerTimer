@@ -25,7 +25,10 @@ namespace Code.Gameplay.Orders.Systems
                     continue;
              
                 order.AddSelfDestructTimer(1f);
-                _game.playerEntity.RemoveGrabbedItem();
+                
+                if (_game.playerEntity.hasGrabbedItem) 
+                    _game.playerEntity.RemoveGrabbedItem();
+                
                 entity.isDestructed = true;
             }
         }

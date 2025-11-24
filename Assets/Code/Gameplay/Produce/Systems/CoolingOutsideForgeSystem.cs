@@ -28,18 +28,22 @@ namespace Code.Gameplay.Produce.Systems
                     continue;
 
                 bool isInForge = false;
+                GameEntity forgeEntity = null;
 
                 foreach (GameEntity forge in _forges)
                 {
                     if (forge.grabbedItem.Value == entity.id.Value)
                     {
                         isInForge = true;
+                        forgeEntity = forge;
                         break;
                     }
                 }
 
-                if (!isInForge) 
+                if (!isInForge || forgeEntity.forge.Power <= 0)
+                {
                     entity.grabbableTemperature.Value = Mathf.Max(_commonStaticData.environmentTemperature, entity.grabbableTemperature.Value - _commonStaticData.itemCoolingRate * Time.deltaTime);
+                }
             }
         }
     }

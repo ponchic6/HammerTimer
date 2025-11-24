@@ -18,7 +18,9 @@
       "WebFetch(domain:wiki.unity3d.com)",
       "WebFetch(domain:forum.unity.com)",
       "WebFetch(domain:discussions.unity.com)",
-      "mcp__photoshop__photoshop_create_document"
+      "mcp__photoshop__photoshop_create_document",
+      "Bash(git ls-tree:*)",
+      "Bash(git log:*)"
     ],
     "deny": [],
     "ask": []

@@ -533,7 +533,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _entityBehaviour: {fileID: 4970148302521513447}
   _componentsToAdd:
-  - componentIndex: 15
+  - componentName: 
     fieldValues:
     - fieldName: Value
       fieldType: System.Single

@@ -17,7 +17,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 8684328594479894219, guid: 338b3008a88dd6c4394cef70fb8af1db, type: 3}
   shelf: {fileID: 0}
   produceMachine: {fileID: 0}
-  doubleClickThreshold: 0
+  doubleClickThreshold: 0.2
   qualityTimeCurve:
     serializedVersion: 2
     m_Curve:
@@ -87,3 +87,4 @@ MonoBehaviour:
   orderTimer: 180
   maxOrdersCount: 4
   minForgePowerDecrease: 1
+  workbenchCapacity: 3
